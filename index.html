@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clarity Haus — CFO for the Serious Creator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --olive: #5C5F3A;
+      --olive-light: #7a7e4e;
+      --olive-dark: #3e4127;
+      --terracotta: #C4674A;
+      --terracotta-light: #d4806a;
+      --cream: #F5F0E8;
+      --cream-dark: #ede6d6;
+      --charcoal: #2a2a2a;
+      --text-muted: #6b6660;
+      --border: rgba(92,95,58,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Josefin Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ANNOUNCEMENT */
+    .announcement {
+      background: var(--olive);
+      color: var(--cream);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .announcement a {
+      color: var(--terracotta-light);
+      text-decoration: none;
+      margin-left: 8px;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Abril Fatface', serif;
+      font-size: 22px;
+      color: var(--olive-dark);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-links a.cta {
+      background: var(--terracotta);
+      color: var(--cream);
+      padding: 10px 20px;
+      transition: background 0.2s;
+    }
+    .nav-links a.cta:hover { background: var(--terracotta-light); color: var(--cream); }
+
+    /* HERO */
+    .hero {
+      background: var(--olive-dark);
+      color: var(--cream);
+      padding: 110px 40px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 75% 40%, rgba(196,103,74,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 15% 80%, rgba(92,95,58,0.35) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      margin-bottom: 28px;
+      padding: 6px 18px;
+      border: 1px solid rgba(196,103,74,0.4);
+    }
+    .hero h1 {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(44px, 7vw, 82px);
+      line-height: 1.04;
+      color: var(--cream);
+      max-width: 860px;
+      margin: 0 auto 28px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--terracotta-light);
+    }
+    .hero-sub {
+      font-family: 'Lora', serif;
+      font-size: 19px;
+      font-style: italic;
+      color: rgba(245,240,232,0.7);
+      max-width: 580px;
+      margin: 0 auto 44px;
+      line-height: 1.65;
+    }
+    .hero-cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      color: var(--cream);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--terracotta-light); transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 15px 40px;
+      border: 1px solid rgba(245,240,232,0.35);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--cream); }
+    .hero-note {
+      margin-top: 32px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(245,240,232,0.35);
+      text-transform: uppercase;
+    }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: var(--cream-dark);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--olive);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .trust-item::before { content: '—'; color: var(--terracotta); }
+
+    /* SECTIONS */
+    .section-wrap {
+      padding: 90px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.08;
+      color: var(--olive-dark);
+      margin-bottom: 20px;
+    }
+    .section-title em { font-style: italic; color: var(--terracotta); }
+    .section-body {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    /* PROBLEM SECTION */
+    .problem {
+      background: var(--cream);
+    }
+    .problem-inner {
+      padding: 90px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .problem-list {
+      list-style: none;
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .problem-list li {
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      color: var(--charcoal);
+      padding: 14px 18px 14px 48px;
+      background: var(--cream-dark);
+      border-left: 3px solid var(--terracotta);
+      position: relative;
+      line-height: 1.5;
+    }
+    .problem-list li::before {
+      content: '✗';
+      position: absolute;
+      left: 16px;
+      color: var(--terracotta);
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 700;
+    }
+    .problem-visual {
+      background: var(--olive-dark);
+      padding: 52px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .problem-visual::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: rgba(196,103,74,0.12);
+    }
+    .problem-quote-mark {
+      font-family: 'Abril Fatface', serif;
+      font-size: 64px;
+      line-height: 1;
+      color: var(--terracotta-light);
+      margin-bottom: 16px;
+    }
+    .problem-quote {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.55;
+      margin-bottom: 28px;
+    }
+    .problem-quote-attr {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+    }
+
+    /* OFFER SECTION */
+    .offer {
+      background: var(--cream-dark);
+      padding: 90px 40px;
+    }
+    .offer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 56px;
+    }
+    .offer-card {
+      background: var(--cream);
+      padding: 44px 40px;
+      position: relative;
+      border-top: 3px solid var(--terracotta);
+    }
+    .offer-card.featured {
+      background: var(--olive-dark);
+      border-top-color: var(--terracotta-light);
+    }
+    .offer-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 20px;
+    }
+    .offer-card.featured .offer-badge { color: var(--terracotta-light); }
+    .offer-card-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: 28px;
+      color: var(--olive-dark);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .offer-card.featured .offer-card-title { color: var(--cream); }
+    .offer-card-desc {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .offer-card.featured .offer-card-desc { color: rgba(245,240,232,0.7); }
+    .offer-card-price {
+      font-family: 'Abril Fatface', serif;
+      font-size: 40px;
+      color: var(--olive-dark);
+      margin-bottom: 6px;
+    }
+    .offer-card.featured .offer-card-price { color: var(--cream); }
+    .offer-card-price-note {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+    .offer-card.featured .offer-card-price-note { color: rgba(245,240,232,0.4); }
+    .offer-card-cta {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--terracotta);
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .offer-card-cta:hover { background: var(--terracotta-light); }
+    .offer-card.featured .offer-card-cta {
+      background: var(--cream);
+      color: var(--olive-dark);
+    }
+    .offer-card.featured .offer-card-cta:hover { background: var(--cream-dark); }
+
+    /* COVERED SECTION */
+    .covered {
+      background: var(--olive-dark);
+      padding: 90px 40px;
+      color: var(--cream);
+    }
+    .covered-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .covered-inner .section-label { color: var(--terracotta-light); }
+    .covered-inner .section-title { color: var(--cream); margin-bottom: 50px; }
+    .covered-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    .covered-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(245,240,232,0.12);
+    }
+    .covered-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .covered-list li {
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      color: rgba(245,240,232,0.82);
+      padding-left: 24px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .covered-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--terracotta-light);
+      font-family: 'Josefin Sans', sans-serif;
+    }
+    .not-included {
+      margin-top: 50px;
+      padding: 28px 32px;
+      border: 1px solid rgba(245,240,232,0.1);
+      background: rgba(245,240,232,0.04);
+    }
+    .not-included-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.35);
+      margin-bottom: 10px;
+    }
+    .not-included-text {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: rgba(245,240,232,0.4);
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .process {
+      background: var(--cream);
+      padding: 90px 40px;
+    }
+    .process-inner { max-width: 1100px; margin: 0 auto; }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 60px;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: var(--border);
+    }
+    .process-step { text-align: center; padding: 0 16px; position: relative; }
+    .step-num {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--cream-dark);
+      border: 2px solid var(--olive);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Abril Fatface', serif;
+      font-size: 20px;
+      color: var(--olive-dark);
+      margin: 0 auto 22px;
+    }
+    .process-step.highlight .step-num {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: var(--cream);
+    }
+    .step-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--olive-dark);
+      margin-bottom: 10px;
+    }
+    .step-desc {
+      font-family: 'Lora', serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* WHY ME */
+    .why {
+      background: var(--cream-dark);
+      padding: 90px 40px;
+    }
+    .why-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      margin-top: 56px;
+    }
+    .why-item {
+      background: var(--cream);
+      padding: 40px 36px;
+    }
+    .why-num {
+      font-family: 'Abril Fatface', serif;
+      font-size: 13px;
+      color: var(--terracotta);
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+    .why-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--olive-dark);
+      margin-bottom: 12px;
+    }
+    .why-desc {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* TOOLS TEASER */
+    .tools-teaser {
+      background: var(--cream);
+      padding: 70px 40px;
+      border-top: 1px solid var(--border);
+    }
+    .tools-teaser-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .tools-teaser-text .section-label { margin-bottom: 10px; }
+    .tools-teaser-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: 28px;
+      color: var(--olive-dark);
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+    .tools-teaser-sub {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+    .btn-outline {
+      display: inline-block;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--olive-dark);
+      border: 2px solid var(--olive-dark);
+      padding: 14px 32px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-outline:hover {
+      background: var(--olive-dark);
+      color: var(--cream);
+    }
+
+    /* AI TEASER */
+    .ai-teaser {
+      background: var(--charcoal);
+      padding: 70px 40px;
+      text-align: center;
+    }
+    .ai-teaser-inner { max-width: 600px; margin: 0 auto; }
+    .ai-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      border: 1px solid rgba(196,103,74,0.4);
+      padding: 5px 14px;
+      margin-bottom: 24px;
+    }
+    .ai-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: 36px;
+      color: var(--cream);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .ai-sub {
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      font-style: italic;
+      color: rgba(245,240,232,0.55);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: var(--terracotta);
+      padding: 90px 40px;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(32px, 4vw, 54px);
+      color: var(--cream);
+      margin-bottom: 16px;
+      line-height: 1.08;
+    }
+    .cta-section p {
+      font-family: 'Lora', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: rgba(245,240,232,0.8);
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-cream {
+      background: var(--cream);
+      color: var(--terracotta);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 18px 48px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-cream:hover { background: var(--cream-dark); }
+    .cta-dm {
+      margin-top: 18px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(245,240,232,0.55);
+    }
+    .cta-dm strong { color: var(--cream); }
+
+    /* FOOTER */
+    footer {
+      background: var(--charcoal);
+      color: rgba(245,240,232,0.45);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Abril Fatface', serif;
+      font-size: 18px;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-copy { font-size: 11px; letter-spacing: 0.06em; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 70px 24px 60px; }
+      .problem-inner { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+      .offer { padding: 60px 24px; }
+      .offer-grid { grid-template-columns: 1fr; }
+      .covered { padding: 60px 24px; }
+      .covered-cols { grid-template-columns: 1fr; gap: 40px; }
+      .process { padding: 60px 24px; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .process-steps::before { display: none; }
+      .why { padding: 60px 24px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .tools-teaser { padding: 50px 24px; }
+      .tools-teaser-inner { flex-direction: column; align-items: flex-start; }
+      .cta-section { padding: 60px 24px; }
+      footer { padding: 30px 24px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Clarity Haus</a>
+    <ul class="nav-links">
+      <li><a href="/clarity-report">Work With Me</a></li>
+      <li><a href="/tools">Tools</a></li>
+      <li><a href="/beta">AI Beta</a></li>
+      <li><a href="/clarity-report" class="cta">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">CFO for the Serious Creator</div>
+    <h1>Financial clarity, <em>finally.</em></h1>
+    <p class="hero-sub">You're making real money across multiple income streams. It's time someone actually helped you understand where it's going — and where it's headed.</p>
+    <div class="hero-cta-group">
+      <a href="/clarity-report" class="btn-primary">See the Creator Clarity Report</a>
+      <a href="#how" class="btn-ghost">How It Works</a>
+    </div>
+
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item">13 years accounting background</div>
+    <div class="trust-item">Creator-specific</div>
+    <div class="trust-item">NDA protected</div>
+    <div class="trust-item">Async delivery</div>
+    <div class="trust-item">Monthly retainer available</div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="problem-inner">
+      <div>
+        <div class="section-label">The problem</div>
+        <h2 class="section-title">Your income grew.<br>Your system <em>didn't.</em></h2>
+        <p class="section-body">You've built something real. Brand deals, affiliate platforms, multiple income streams running simultaneously. But without anyone in your corner who actually understands creator money — you're flying blind.</p>
+        <ul class="problem-list">
+          <li>No clear picture of what you're actually keeping after expenses</li>
+          <li>Brand deal payments falling through the cracks unnoticed</li>
+          <li>No idea what you owe in taxes until it's too late</li>
+          <li>Six income streams and zero visibility across any of them</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="offer" id="offers">
+    <div class="offer-inner">
+      <div class="section-label">How we work together</div>
+      <h2 class="section-title">Two ways to get <em>clarity.</em></h2>
+      <p class="section-body">Start with a complete picture of where you stand. Then keep that clarity every month.</p>
+      <div class="offer-grid">
+        <div class="offer-card featured">
+          <div class="offer-badge">Step 1 · Most Popular</div>
+          <div class="offer-card-title">Creator Clarity Report</div>
+          <div class="offer-card-desc">A complete financial review of your creator business — net income, missed payments, cash flow, revenue projections, estimated taxes, and a budget framework — researched, analyzed, and delivered directly to you.</div>
+          <a href="/clarity-report" class="offer-card-cta">Learn More →</a>
+        </div>
+        <div class="offer-card">
+          <div class="offer-badge">Step 2 · Ongoing</div>
+          <div class="offer-card-title">Monthly CFO Retainer</div>
+          <div class="offer-card-desc">For creators who want ongoing financial clarity. Monthly cash flow monitoring, income review, estimated tax tracking, and a dedicated CFO in your corner every month — without the overhead of a full-time hire.</div>
+          <a href="https://instagram.com/theclarityhaus" target="_blank" class="offer-card-cta">Connect →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERED -->
+  <section class="covered">
+    <div class="covered-inner">
+      <div class="section-label">What's covered</div>
+      <h2 class="section-title">Backward-looking <em>&</em> forward-looking</h2>
+      <div class="covered-cols">
+        <div>
+          <div class="covered-group-title">Where you've been</div>
+          <ul class="covered-list">
+            <li>Current net income — what you're actually keeping after expenses</li>
+            <li>Missed and outstanding brand deal payments</li>
+            <li>Year-to-date income review across all platforms</li>
+            <li>Financial statement compilation</li>
+            <li>1099 exposure — who owes you one and what to do</li>
+          </ul>
+        </div>
+        <div>
+          <div class="covered-group-title">Where you're going</div>
+          <ul class="covered-list">
+            <li>Cash flow projections based on current contracts and pipeline</li>
+            <li>Revenue projection through end of year</li>
+            <li>Estimated quarterly tax liability</li>
+            <li>Budget framework built for irregular creator income</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="process" id="how">
+    <div class="process-inner">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title">Simple from <em>start to finish.</em></h2>
+      <div class="process-steps">
+        <div class="process-step highlight">
+          <div class="step-num">1</div>
+          <div class="step-title">Connect</div>
+          <p class="step-desc">DM on Instagram or email directly at itsclarityhaus@gmail.com to get started.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">2</div>
+          <div class="step-title">Intake call</div>
+          <p class="step-desc">A short call to understand your situation before anything is shared.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">3</div>
+          <div class="step-title">Send your info</div>
+          <p class="step-desc">Bank statements, brand deal records, affiliate exports, 1099s. You send the chaos — I handle the rest.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">4</div>
+          <div class="step-title">Receive your report</div>
+          <p class="step-desc">Loom walkthrough + PDF summary delivered in approximately one week.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ME -->
+  <section class="why" id="why">
+    <div class="why-inner">
+      <div class="section-label">Why Clarity Haus</div>
+      <h2 class="section-title">Built for how creators <em>actually</em> make money.</h2>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div class="why-title">13 Years of Accounting</div>
+          <p class="why-desc">This isn't a side project. It's a full accounting career applied specifically to the creator economy — so you get real financial expertise, not generic advice.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div class="why-title">Creator-Specific</div>
+          <p class="why-desc">Irregular income, brand deal timelines, multi-platform affiliate payouts, quarterly taxes — built around how creator money actually works, not a standard paycheck.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div class="why-title">CFO-Level Thinking</div>
+          <p class="why-desc">Not bookkeeping. Not tax prep. Strategic financial clarity — the kind of forward-looking perspective that helps you make better decisions with the money you're already making.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS TEASER -->
+  <section class="tools-teaser">
+    <div class="tools-teaser-inner">
+      <div class="tools-teaser-text">
+        <div class="section-label">Self-Serve Tools</div>
+        <div class="tools-teaser-title">Prefer to start on your own?</div>
+        <p class="tools-teaser-sub">The Brand Deal Analyzer and Creator Finance Dashboard are built for creators who want to manage their own numbers — available as one-time downloads starting at $37.</p>
+      </div>
+      <a href="/tools" class="btn-outline">See the Tools →</a>
+    </div>
+  </section>
+
+  <!-- AI TEASER -->
+  <section class="ai-teaser">
+    <div class="ai-teaser-inner">
+      <div class="ai-badge">Coming Soon</div>
+      <div class="ai-title">Clarity Haus AI</div>
+      <p class="ai-sub">An AI-powered financial advisor built specifically for creators. Ask it anything — built by an accountant, powered by AI.</p>
+      <a href="/beta" class="btn-primary">Join the Waitlist →</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Ready to know your numbers?</h2>
+    <p>One engagement. Complete financial clarity. No more flying blind.</p>
+    <a href="https://instagram.com/theclarityhaus" target="_blank" class="btn-cream">Get Started on Instagram</a>
+    <p class="cta-dm">DM the word <strong>"CLARITY"</strong> to @theclarityhaus</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="footer-logo">Clarity Haus</a>
+    <ul class="footer-links">
+      <li><a href="/clarity-report">Work With Me</a></li>
+      <li><a href="/tools">Tools</a></li>
+      <li><a href="/beta">AI Beta</a></li>
+      <li><a href="https://instagram.com/theclarityhaus" target="_blank">Instagram</a></li>
+      <li><a href="mailto:itsclarityhaus@gmail.com">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Clarity Haus, LLC</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools — Clarity Haus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Sans:wght@300;400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --olive: #5C5F3A;
+      --olive-light: #7a7e4e;
+      --olive-dark: #3e4127;
+      --terracotta: #C4674A;
+      --terracotta-light: #d4806a;
+      --cream: #F5F0E8;
+      --cream-dark: #ede6d6;
+      --charcoal: #2a2a2a;
+      --text-muted: #6b6660;
+      --border: rgba(92,95,58,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Josefin Sans', sans-serif;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .announcement {
+      background: var(--olive);
+      color: var(--cream);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .announcement a { color: var(--terracotta-light); text-decoration: none; margin-left: 8px; }
+
+    nav {
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Abril Fatface', serif;
+      font-size: 22px;
+      color: var(--olive-dark);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-links a.active { color: var(--terracotta); }
+    .nav-links a.cta {
+      background: var(--terracotta);
+      color: var(--cream);
+      padding: 10px 20px;
+    }
+    .nav-links a.cta:hover { background: var(--terracotta-light); color: var(--cream); }
+
+    /* PAGE HERO */
+    .page-hero {
+      background: var(--cream-dark);
+      padding: 70px 40px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .page-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.06;
+      color: var(--olive-dark);
+      margin-bottom: 18px;
+    }
+    .page-title em { font-style: italic; color: var(--terracotta); }
+    .page-sub {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.65;
+    }
+
+    /* TOOLS */
+    .tools {
+      padding: 80px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tool-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 0;
+      overflow: hidden;
+    }
+    .tool-card-body { padding: 48px 44px; }
+    .tool-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--olive);
+      background: var(--cream-dark);
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .tool-badge.new { color: var(--terracotta); background: rgba(196,103,74,0.1); }
+    .tool-badge.best { color: var(--olive-dark); background: rgba(92,95,58,0.12); }
+    .tool-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: 30px;
+      color: var(--olive-dark);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .tool-desc {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 520px;
+    }
+    .tool-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tool-features li {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: var(--charcoal);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .tool-features li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--terracotta);
+      font-weight: 700;
+    }
+    .tool-card-aside {
+      background: var(--olive-dark);
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tool-price {
+      font-family: 'Abril Fatface', serif;
+      font-size: 52px;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .tool-price-note {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+      margin-bottom: 32px;
+    }
+    .tool-cta {
+      display: block;
+      background: var(--terracotta);
+      color: var(--cream);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+      margin-bottom: 12px;
+    }
+    .tool-cta:hover { background: var(--terracotta-light); }
+    .tool-note {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: rgba(245,240,232,0.3);
+      text-align: center;
+    }
+
+    /* BUNDLE CARD */
+    .bundle-card {
+      background: var(--olive-dark);
+      padding: 48px 44px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .bundle-card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(196,103,74,0.12);
+    }
+    .bundle-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      border: 1px solid rgba(196,103,74,0.4);
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .bundle-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: 30px;
+      color: var(--cream);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .bundle-desc {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      color: rgba(245,240,232,0.7);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+    .bundle-aside {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding-left: 44px;
+      position: relative;
+      z-index: 1;
+    }
+    .bundle-was {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.3);
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .bundle-price {
+      font-family: 'Abril Fatface', serif;
+      font-size: 52px;
+      color: var(--cream);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .bundle-save {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      margin-bottom: 28px;
+    }
+    .bundle-cta {
+      display: inline-block;
+      background: var(--cream);
+      color: var(--olive-dark);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .bundle-cta:hover { background: var(--cream-dark); }
+
+    /* CFO TEASER */
+    .cfo-teaser {
+      background: var(--terracotta);
+      padding: 70px 40px;
+      text-align: center;
+    }
+    .cfo-teaser-inner { max-width: 600px; margin: 0 auto; }
+    .cfo-teaser h2 {
+      font-family: 'Abril Fatface', serif;
+      font-size: 36px;
+      color: var(--cream);
+      margin-bottom: 14px;
+      line-height: 1.1;
+    }
+    .cfo-teaser p {
+      font-family: 'Lora', serif;
+      font-size: 16px;
+      font-style: italic;
+      color: rgba(245,240,232,0.8);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .btn-cream {
+      background: var(--cream);
+      color: var(--terracotta);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-cream:hover { background: var(--cream-dark); }
+
+    footer {
+      background: var(--charcoal);
+      color: rgba(245,240,232,0.45);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-logo { font-family: 'Abril Fatface', serif; font-size: 18px; color: var(--cream); text-decoration: none; }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-copy { font-size: 11px; letter-spacing: 0.06em; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 50px 24px 40px; }
+      .tools { padding: 50px 24px; }
+      .tool-card { grid-template-columns: 1fr; }
+      .tool-card-body { padding: 36px 28px; }
+      .tool-card-aside { padding: 36px 28px; }
+      .bundle-card { grid-template-columns: 1fr; padding: 36px 28px; gap: 32px; }
+      .bundle-aside { padding-left: 0; }
+      .cfo-teaser { padding: 50px 24px; }
+      footer { padding: 30px 24px; flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+
+
+  <nav>
+    <a href="/" class="nav-logo">Clarity Haus</a>
+    <ul class="nav-links">
+      <li><a href="/clarity-report">Work With Me</a></li>
+      <li><a href="/tools" class="active">Tools</a></li>
+      <li><a href="/beta">AI Beta</a></li>
+      <li><a href="/clarity-report" class="cta">DM "CLARITY"</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-label">Self-Serve Tools</div>
+      <h1 class="page-title">Two tools. One <em>clear picture.</em></h1>
+      <p class="page-sub">Built for creators who want to manage their own numbers — no subscription, no setup, instant download.</p>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <div class="tools">
+
+    <!-- Brand Deal Analyzer -->
+    <div class="tool-card">
+      <div class="tool-card-body">
+        <div class="tool-badge new">New</div>
+        <div class="tool-title">Brand Deal Analyzer</div>
+        <p class="tool-desc">Stop guessing whether a brand deal is worth it. Enter the offer details and get your true take-home pay, real hourly rate, and a clear verdict — before you say yes.</p>
+        <ul class="tool-features">
+          <li>Deal input — fee, deliverables, usage rights, exclusivity</li>
+          <li>True cost calculator — your time, production, contractor fees</li>
+          <li>Tax breakdown — self-employment + income tax set-aside</li>
+          <li>Results dashboard — net take-home, true hourly, deal rating</li>
+          <li>Auto red flags for unpaid usage rights & exclusivity</li>
+        </ul>
+      </div>
+      <div class="tool-card-aside">
+        <div>
+          <div class="tool-price">$37</div>
+          <div class="tool-price-note">One-time · Instant download</div>
+        </div>
+        <div>
+          <a href="https://clarityhaus1.gumroad.com/l/csgsyf" target="_blank" class="tool-cta">Get the Analyzer →</a>
+          <div class="tool-note">Works in Google Sheets + Excel</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Creator Finance Dashboard -->
+    <div class="tool-card">
+      <div class="tool-card-body">
+        <div class="tool-badge best">Bestseller</div>
+        <div class="tool-title">Creator Finance Dashboard</div>
+        <p class="tool-desc">A complete financial tracking system for creators. Know exactly where your money is going, how much to set aside for taxes, and whether your business is actually profitable.</p>
+        <ul class="tool-features">
+          <li>Income tracker — log every payment by month & platform</li>
+          <li>Expense tracker — categorized business expenses</li>
+          <li>Tax set-aside tracker — quarterly estimated tax schedule</li>
+          <li>Dashboard — live KPIs: income, expenses, profit, tax owed</li>
+          <li>How-to guide included</li>
+        </ul>
+      </div>
+      <div class="tool-card-aside">
+        <div>
+          <div class="tool-price">$37</div>
+          <div class="tool-price-note">One-time · Instant download</div>
+        </div>
+        <div>
+          <a href="https://clarityhaus1.gumroad.com/l/spzfxf" target="_blank" class="tool-cta">Get the Dashboard →</a>
+          <div class="tool-note">Works in Google Sheets + Excel</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bundle -->
+    <div class="bundle-card">
+      <div>
+        <div class="bundle-badge">Best Value</div>
+        <div class="bundle-title">The Creator Finance Bundle</div>
+        <p class="bundle-desc">Both tools together. The Dashboard keeps your finances organized all year. The Analyzer makes sure every brand deal you take is actually worth your time. Together they cover your entire creator business.</p>
+      </div>
+      <div class="bundle-aside">
+        <div class="bundle-was">$74 separately</div>
+        <div class="bundle-price">$57</div>
+        <div class="bundle-save">Save $17</div>
+        <a href="https://clarityhaus1.gumroad.com/l/uqrkzz" target="_blank" class="bundle-cta">Get the Bundle →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CFO TEASER -->
+  <section class="cfo-teaser">
+    <div class="cfo-teaser-inner">
+      <h2>Need more than a tool?</h2>
+      <p>The Creator Clarity Report is a complete financial review of your creator business — delivered personally by someone with 13 years of accounting experience.</p>
+      <a href="/clarity-report" class="btn-cream">See the Creator Clarity Report →</a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/" class="footer-logo">Clarity Haus</a>
+    <ul class="footer-links">
+      <li><a href="/clarity-report">Work With Me</a></li>
+      <li><a href="/tools">Tools</a></li>
+      <li><a href="/beta">AI Beta</a></li>
+      <li><a href="https://instagram.com/theclarityhaus" target="_blank">Instagram</a></li>
+      <li><a href="mailto:itsclarityhaus@gmail.com">Contact</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Clarity Haus, LLC</p>
+  </footer>
+
+</body>
+</html>
