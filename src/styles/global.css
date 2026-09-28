@@ -157,3 +157,16 @@ select.input {
   }
   .js [data-reveal].is-visible { opacity: 1; transform: none; }
 }
+
+/* ── Form submit error ─────────────────────────────────── */
+.form-error {
+  flex-basis: 100%;
+  width: 100%;
+  font-size: var(--text-sm);
+  color: #8A3B2E;
+  background: #F6E9E5;
+  border: 1px solid #E7CFC8;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+}
+.form-error a { color: inherit; font-weight: 600; }

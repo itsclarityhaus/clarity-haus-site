@@ -69,6 +69,32 @@ const schemas = [orgSchema, ...(schema ? (Array.isArray(schema) ? schema : [sche
     <Footer />
 
     <script>
+      // Netlify Forms: submit in the background so visitors never land on an
+      // error page. On success → /thanks/. On failure → inline message + email link.
+      document.querySelectorAll<HTMLFormElement>('form[data-netlify]').forEach((form) => {
+        form.addEventListener('submit', async (e) => {
+          if (!form.checkValidity()) return;
+          e.preventDefault();
+          const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+          const label = btn?.innerHTML;
+          if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+          form.querySelector('.form-error')?.remove();
+          try {
+            const body = new URLSearchParams(new FormData(form) as any).toString();
+            const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+            if (!res.ok) throw new Error(String(res.status));
+            window.location.href = form.getAttribute('action') || '/thanks/';
+          } catch {
+            if (btn) { btn.disabled = false; btn.innerHTML = label || 'Submit'; }
+            const msg = document.createElement('p');
+            msg.className = 'form-error';
+            msg.setAttribute('role', 'alert');
+            msg.innerHTML = 'Something went wrong sending your message. Please email us at <a href="mailto:itsclarityhaus@gmail.com">itsclarityhaus@gmail.com</a>.';
+            form.appendChild(msg);
+          }
+        });
+      });
+
       // Subtle scroll-reveal. Content is visible by default without JS
       // and for people who prefer reduced motion.
       const els = document.querySelectorAll<HTMLElement>('[data-reveal]');

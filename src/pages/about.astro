@@ -11,9 +11,12 @@ import CtaSection from '../components/CtaSection.astro';
 const founder = {
   name: 'Cole',
   role: 'Founder, Clarity Haus',
-  photo: '', // e.g. '/images/cole.jpg' (place the file in /public/images/)
-  bio: [] as string[], // one string per paragraph
-  credentials: [] as string[], // e.g. ['…', '…'] — only list what you want public
+  photo: '/images/cole.jpg', // file lives in /public/images/
+  bio: [
+    "I'm Cole, the founder of Clarity Haus. I've spent 13 years in accounting, about half in public accounting and half in corporate finance, helping businesses understand their numbers and make better decisions with them.",
+    "Clarity Haus started at home. My wife is a creator, and as I helped with the business side of her brand, I saw the same challenges come up across the creator industry: income from a dozen different places, brand payments that arrive months later, taxes no one is setting aside for, and no clear picture of what the business actually earns. Talented creators were building real businesses without financial support behind them. I started Clarity Haus to change that.",
+    "When I'm not working, you'll find me with my wife, our three kids, and our dog, usually near the ocean, outdoors, or out on the next adventure.",
+  ] as string[], // one string per paragraph
 };
 ---
 <BaseLayout
@@ -37,7 +40,7 @@ const founder = {
     <div class="container founder">
       <div class="founder-photo" data-reveal>
         {founder.photo ? (
-          <img src={founder.photo} alt={`${founder.name}, founder of Clarity Haus`} width="800" height="1000" loading="lazy" decoding="async" />
+          <img src={founder.photo} alt="Cole, founder of Clarity Haus, with his wife on a boat at sunset" width="960" height="1200" loading="lazy" decoding="async" />
         ) : (
           <div class="photo-ph" role="img" aria-label="Founder photo coming soon">
             <Icon name="users" size={36} />
@@ -54,14 +57,6 @@ const founder = {
               <span class="placeholder-note">Founder bio — add later</span>
               <p class="muted">A short introduction to Cole: background, why he started Clarity Haus, and how he works with creators.</p>
             </div>
-          )}
-        </div>
-        <div class="founder-creds" data-reveal>
-          <h3>Background &amp; credentials</h3>
-          {founder.credentials.length > 0 ? (
-            <ul class="checklist">{founder.credentials.map((c) => <li>{c}</li>)}</ul>
-          ) : (
-            <div class="ph-block"><span class="placeholder-note">Credentials — add later</span></div>
           )}
         </div>
         <div data-reveal><Button href="/contact/" arrow>Book a Discovery Call</Button></div>
@@ -102,8 +97,7 @@ const founder = {
   .founder-copy { display: grid; gap: var(--space-5); }
   .founder-copy :global(.section-heading) { margin-bottom: 0; }
   .founder-role { color: var(--color-text-muted); margin-top: calc(-1 * var(--space-3)); }
-  .founder-bio { display: grid; gap: var(--space-4); }
-  .founder-creds h3 { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-sage); margin-bottom: var(--space-4); }
+  .founder-bio { display: grid; gap: var(--space-4); color: var(--color-text-muted); font-size: var(--text-md); }
   .ph-block { display: grid; gap: var(--space-3); justify-items: start; padding: 1.25rem; border: 1px dashed var(--color-border); border-radius: var(--radius-md); }
 
   .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
