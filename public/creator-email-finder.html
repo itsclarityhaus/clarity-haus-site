@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Email Finder — Clarity Haus</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #FAF7F2;
+      color: #3A3A3A;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: #2C2C2C;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: #7A6F63;
+      font-weight: 500;
+    }
+
+    .search-card {
+      background: #FFFFFF;
+      border: 1px solid #E8E0D6;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .search-card label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #7A6F63;
+      margin-bottom: 12px;
+    }
+
+    .search-card textarea {
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid #E8E0D6;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #3A3A3A;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-card textarea:focus {
+      border-color: #7A6F63;
+    }
+
+    .search-card textarea::placeholder {
+      color: #B8AFA5;
+    }
+
+    .search-card .hint {
+      font-size: 13px;
+      color: #B8AFA5;
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    .btn-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-search {
+      background: #3A3A3A;
+      color: #FAF7F2;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-search:hover { background: #2C2C2C; }
+    .btn-search:disabled { background: #B8AFA5; cursor: not-allowed; }
+
+    .btn-clear {
+      background: none;
+      border: 1px solid #E8E0D6;
+      border-radius: 8px;
+      padding: 14px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: #7A6F63;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .btn-clear:hover { border-color: #7A6F63; }
+
+    .handle-count {
+      margin-left: auto;
+      font-size: 13px;
+      color: #B8AFA5;
+    }
+
+    /* Status bar */
+    .status-bar {
+      background: #2C2C2C;
+      color: #FAF7F2;
+      border-radius: 12px;
+      padding: 24px 32px;
+      margin-bottom: 24px;
+      display: none;
+    }
+
+    .status-bar.visible { display: flex; align-items: center; justify-content: space-between; }
+
+    .status-stats {
+      display: flex;
+      gap: 32px;
+    }
+
+    .status-stat {
+      text-align: center;
+    }
+
+    .status-stat .num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      display: block;
+      line-height: 1.2;
+    }
+
+    .status-stat .label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+
+    .status-message {
+      font-size: 14px;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
+    /* Results */
+    .results-section {
+      display: none;
+    }
+
+    .results-section.visible { display: block; }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .results-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: #2C2C2C;
+    }
+
+    .btn-export {
+      background: none;
+      border: 1px solid #E8E0D6;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #7A6F63;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .btn-export:hover { border-color: #7A6F63; }
+
+    .result-card {
+      background: #FFFFFF;
+      border: 1px solid #E8E0D6;
+      border-left: 4px solid #E8E0D6;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .result-card.found { border-left-color: #6B8F71; }
+    .result-card.not-found { border-left-color: #B8AFA5; }
+    .result-card.error { border-left-color: #C47A5A; }
+    .result-card.searching { border-left-color: #D4A853; }
+
+    .result-info h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #2C2C2C;
+      margin-bottom: 4px;
+    }
+
+    .result-info p {
+      font-size: 14px;
+      color: #7A6F63;
+    }
+
+    .result-info p a {
+      color: #3A3A3A;
+      text-decoration: underline;
+    }
+
+    .result-badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .badge-found { background: #EDF4EE; color: #4A7A50; }
+    .badge-not-found { background: #F0EDEA; color: #7A6F63; }
+    .badge-error { background: #FAEFEA; color: #B35A3A; }
+    .badge-searching { background: #FDF6E8; color: #A0842E; }
+
+    @media (max-width: 600px) {
+      .header h1 { font-size: 26px; }
+      .search-card { padding: 24px 20px; }
+      .status-bar { flex-direction: column; gap: 16px; text-align: center; }
+      .btn-row { flex-wrap: wrap; }
+      .handle-count { margin-left: 0; }
+      .result-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Creator Email Finder</h1>
+      <p>Paste Instagram handles — the agent searches the web, finds the email.</p>
+    </div>
+
+    <div class="search-card">
+      <label>Instagram Handles</label>
+      <textarea id="handles-input" placeholder="@cocoincashmere
+@allisonbornstein6
+@livvperez"></textarea>
+      <p class="hint">One handle per line. Include or omit the @ — either works.</p>
+      <div class="btn-row">
+        <button class="btn-search" id="search-btn" onclick="runSearch()">Run Search</button>
+        <button class="btn-clear" onclick="clearAll()">Clear</button>
+        <span class="handle-count" id="handle-count"></span>
+      </div>
+    </div>
+
+    <div class="status-bar" id="status-bar">
+      <div class="status-stats">
+        <div class="status-stat">
+          <span class="num" id="stat-handles">0</span>
+          <span class="label">Handles</span>
+        </div>
+        <div class="status-stat">
+          <span class="num" id="stat-found">0</span>
+          <span class="label">Emails Found</span>
+        </div>
+        <div class="status-stat">
+          <span class="num" id="stat-done">0</span>
+          <span class="label">Completed</span>
+        </div>
+      </div>
+      <span class="status-message" id="status-message">Searching...</span>
+    </div>
+
+    <div class="results-section" id="results-section">
+      <div class="results-header">
+        <h2>Results</h2>
+        <button class="btn-export" onclick="exportCSV()">Export CSV</button>
+      </div>
+      <div id="results-list"></div>
+    </div>
+  </div>
+
+  <script>
+    const textarea = document.getElementById('handles-input');
+    const countEl = document.getElementById('handle-count');
+    let allResults = [];
+
+    textarea.addEventListener('input', updateCount);
+
+    function parseHandles() {
+      return textarea.value
+        .split('\n')
+        .map(h => h.trim().replace(/^@/, ''))
+        .filter(h => h.length > 0);
+    }
+
+    function updateCount() {
+      const handles = parseHandles();
+      countEl.textContent = handles.length > 0 ? `${handles.length} handle${handles.length !== 1 ? 's' : ''}` : '';
+    }
+
+    function clearAll() {
+      textarea.value = '';
+      countEl.textContent = '';
+      document.getElementById('status-bar').classList.remove('visible');
+      document.getElementById('results-section').classList.remove('visible');
+      document.getElementById('results-list').innerHTML = '';
+      allResults = [];
+    }
+
+    async function runSearch() {
+      const handles = parseHandles();
+      if (handles.length === 0) return;
+
+      const btn = document.getElementById('search-btn');
+      btn.disabled = true;
+      btn.textContent = 'Searching...';
+      allResults = [];
+
+      // Show status bar
+      const statusBar = document.getElementById('status-bar');
+      statusBar.classList.add('visible');
+      document.getElementById('stat-handles').textContent = handles.length;
+      document.getElementById('stat-found').textContent = '0';
+      document.getElementById('stat-done').textContent = '0';
+      document.getElementById('status-message').textContent = 'Searching...';
+
+      // Show results section
+      const resultsSection = document.getElementById('results-section');
+      resultsSection.classList.add('visible');
+      const resultsList = document.getElementById('results-list');
+      resultsList.innerHTML = '';
+
+      let found = 0;
+      let done = 0;
+
+      // Add placeholder cards
+      handles.forEach(handle => {
+        const card = document.createElement('div');
+        card.className = 'result-card searching';
+        card.id = `result-${handle}`;
+        card.innerHTML = `
+          <div class="result-info">
+            <h3>@${handle}</h3>
+            <p>Searching...</p>
+          </div>
+          <span class="result-badge badge-searching">Searching</span>
+        `;
+        resultsList.appendChild(card);
+      });
+
+      // Search one at a time
+      for (const handle of handles) {
+        try {
+          const response = await fetch('/.netlify/functions/search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ handle })
+          });
+
+          const result = await response.json();
+          allResults.push(result);
+
+          const card = document.getElementById(`result-${handle}`);
+          if (result.email && result.email !== 'null' && result.email !== null) {
+            found++;
+            card.className = 'result-card found';
+            card.innerHTML = `
+              <div class="result-info">
+                <h3>@${handle}</h3>
+                <p><a href="mailto:${result.email}">${result.email}</a> · ${result.confidence || 'unknown'} confidence · ${result.source || 'web search'}</p>
+              </div>
+              <span class="result-badge badge-found">Found</span>
+            `;
+          } else {
+            card.className = 'result-card not-found';
+            card.innerHTML = `
+              <div class="result-info">
+                <h3>@${handle}</h3>
+                <p>No public email found</p>
+              </div>
+              <span class="result-badge badge-not-found">Not Found</span>
+            `;
+          }
+        } catch (err) {
+          allResults.push({ handle: `@${handle}`, email: null, error: err.message });
+          const card = document.getElementById(`result-${handle}`);
+          card.className = 'result-card error';
+          card.innerHTML = `
+            <div class="result-info">
+              <h3>@${handle}</h3>
+              <p>Search failed — try again.</p>
+            </div>
+            <span class="result-badge badge-error">Error</span>
+          `;
+        }
+
+        done++;
+        document.getElementById('stat-found').textContent = found;
+        document.getElementById('stat-done').textContent = done;
+      }
+
+      document.getElementById('status-message').textContent = 'Search complete.';
+      btn.disabled = false;
+      btn.textContent = 'Run Search';
+    }
+
+    function exportCSV() {
+      if (allResults.length === 0) return;
+
+      let csv = 'Handle,Email,Confidence,Source\n';
+      allResults.forEach(r => {
+        csv += `"${r.handle || ''}","${r.email || ''}","${r.confidence || ''}","${r.source || ''}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'clarity-haus-email-results.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

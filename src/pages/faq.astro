@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { faqs } from '../data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<BaseLayout
+  title="FAQ | Clarity Haus"
+  description="Answers to common questions about working with Clarity Haus: QuickBooks, bookkeeping, remote work, cleanups, meetings, taxes, LLCs, and engagement terms."
+  schema={faqSchema}
+>
+  <PageHero eyebrow="FAQ" title="Common <em>questions.</em>" intro="Still wondering about something? Reach out and we'll get back to you." />
+  <section class="section">
+    <div class="container-narrow">
+      <FaqAccordion idPrefix="faq-page" />
+    </div>
+  </section>
+  <CtaSection />
+</BaseLayout>

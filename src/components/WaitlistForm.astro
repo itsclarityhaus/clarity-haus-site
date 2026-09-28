@@ -1,0 +1,33 @@
+---
+// Email waitlist using Netlify Forms (no backend needed).
+// Submissions appear in Netlify → Site → Forms → "waitlist".
+interface Props { interest?: string; button?: string; dark?: boolean; id?: string }
+const { interest = 'General', button = 'Join the Waitlist', dark = false, id = 'waitlist' } = Astro.props;
+---
+<form
+  name="waitlist"
+  method="POST"
+  action="/thanks/"
+  data-netlify="true"
+  netlify-honeypot="company_website"
+  class:list={['waitlist', { dark }]}
+>
+  <input type="hidden" name="form-name" value="waitlist" />
+  <input type="hidden" name="interest" value={interest} />
+  <p class="sr-only"><label>Leave this empty: <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
+  <label for={`${id}-email`} class="sr-only">Email address</label>
+  <input id={`${id}-email`} class="input" type="email" name="email" placeholder="you@yourbrand.com" autocomplete="email" required />
+  <button type="submit" class="btn btn-primary">{button}</button>
+</form>
+
+<style>
+  .waitlist { display: flex; gap: var(--space-2); width: 100%; max-width: 30rem; }
+  .waitlist .input { flex: 1; min-width: 0; border-radius: var(--radius-pill); padding-inline: 1.25rem; }
+  .dark .input { background: rgba(248, 247, 242, 0.08); border-color: rgba(248, 247, 242, 0.25); color: var(--color-on-green); }
+  .dark .input::placeholder { color: var(--color-on-green-muted); }
+  .dark .btn-primary { background: var(--color-bg); color: var(--color-green); }
+  @media (max-width: 480px) {
+    .waitlist { flex-direction: column; }
+    .waitlist .btn { width: 100%; }
+  }
+</style>

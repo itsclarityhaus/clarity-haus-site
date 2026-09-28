@@ -1,0 +1,90 @@
+---
+// Accessible accordion: real <button>s with aria-expanded + aria-controls.
+// Works with keyboard (Tab / Enter / Space, plus ↑ ↓ Home End between questions).
+// Without JS every answer is visible.
+import { faqs as allFaqs } from '../data/site';
+interface Props { items?: { q: string; a: string }[]; idPrefix?: string }
+const { items = allFaqs, idPrefix = 'faq' } = Astro.props;
+---
+<div class="faq" data-faq>
+  {items.map((item, i) => (
+    <div class="faq-item" data-reveal style={`--reveal-i:${Math.min(i, 4)}`}>
+      <h3 class="faq-q">
+        <button
+          type="button"
+          id={`${idPrefix}-btn-${i}`}
+          aria-expanded="false"
+          aria-controls={`${idPrefix}-panel-${i}`}
+          data-faq-btn
+        >
+          <span>{item.q}</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+      </h3>
+      <div id={`${idPrefix}-panel-${i}`} role="region" aria-labelledby={`${idPrefix}-btn-${i}`} class="faq-panel" data-faq-panel>
+        <div class="faq-panel-inner"><p>{item.a}</p></div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .faq { border-top: 1px solid var(--color-border); }
+  .faq-item { border-bottom: 1px solid var(--color-border); }
+  .faq-q { font: inherit; }
+  .faq-q button {
+    width: 100%;
+    display: flex; justify-content: space-between; align-items: center; gap: var(--space-5);
+    padding: 1.5rem 0.25rem;
+    min-height: 64px;
+    background: none; border: 0; text-align: left;
+    font-size: var(--text-md); font-weight: 500; color: var(--color-text);
+  }
+  .faq-q button:hover { color: var(--color-green); }
+  .faq-icon {
+    position: relative; flex: none;
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid var(--color-border);
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .faq-icon::before, .faq-icon::after {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    width: 12px; height: 1.5px; background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s var(--ease);
+  }
+  .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  [aria-expanded='true'] .faq-icon { background: var(--color-green); border-color: var(--color-green); color: var(--color-on-green); }
+  [aria-expanded='true'] .faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+
+  .faq-panel { display: grid; grid-template-rows: 1fr; }
+  :global(.js) .faq-panel { grid-template-rows: 0fr; transition: grid-template-rows 0.35s var(--ease); }
+  :global(.js) .faq-panel.is-open { grid-template-rows: 1fr; }
+  .faq-panel-inner { overflow: hidden; }
+  .faq-panel p { padding: 0 3.5rem 1.6rem 0.25rem; color: var(--color-text-muted); max-width: 44rem; }
+  @media (max-width: 600px) { .faq-panel p { padding-right: 0.25rem; } }
+  @media (prefers-reduced-motion: reduce) { :global(.js) .faq-panel, .faq-icon::before, .faq-icon::after { transition: none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq]').forEach((root) => {
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-faq-btn]'));
+    buttons.forEach((btn, i) => {
+      const panel = document.getElementById(btn.getAttribute('aria-controls')!)!;
+      panel.setAttribute('inert', '');
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', String(open));
+        panel.classList.toggle('is-open', open);
+        open ? panel.removeAttribute('inert') : panel.setAttribute('inert', '');
+      });
+      btn.addEventListener('keydown', (e) => {
+        const map: Record<string, number> = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: buttons.length - 1 };
+        if (e.key in map) {
+          e.preventDefault();
+          buttons[(map[e.key] + buttons.length) % buttons.length].focus();
+        }
+      });
+    });
+  });
+</script>

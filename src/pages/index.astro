@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import DashboardMock from '../components/DashboardMock.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import CreatorCategories from '../components/CreatorCategories.astro';
+import WorkspaceImage from '../components/WorkspaceImage.astro';
+import QuizPreview from '../components/QuizPreview.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { faqs } from '../data/site';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<BaseLayout
+  title="Clarity Haus | Fractional CFO Services for Creators"
+  description="Clarity Haus helps creators organize their finances, understand their numbers, prepare for taxes, and make confident business decisions through financial cleanup, bookkeeping, and fractional CFO services."
+  schema={faqSchema}
+>
+  <!-- 1 · HERO -->
+  <section class="hero">
+    <div class="container-wide hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-reveal>Financial clarity for creators</p>
+        <h1 data-reveal style="--reveal-i:1">Know where your business <em>stands.</em></h1>
+        <p class="lead" data-reveal style="--reveal-i:2">
+          We organize your finances, track your numbers, simplify taxes, and help you make confident business decisions so you can spend more time creating.
+        </p>
+        <div class="hero-ctas" data-reveal style="--reveal-i:3">
+          <Button href="/contact/" size="lg" arrow>Book Intro Call</Button>
+          <Button href="#services" variant="secondary" size="lg">See Services</Button>
+        </div>
+        <ul class="trust" role="list" data-reveal style="--reveal-i:4">
+          <li><Icon name="sparkle" size={18} />Built for creators</li>
+          <li><Icon name="globe" size={18} />Virtual &amp; nationwide</li>
+          <li><Icon name="compass" size={18} />Clarity at every stage</li>
+        </ul>
+      </div>
+      <div class="hero-visual" data-reveal style="--reveal-i:2">
+        <DashboardMock />
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · THE PROBLEM -->
+  <section class="section section-alt problem">
+    <div class="container split">
+      <div class="problem-copy">
+        <SectionHeading eyebrow="The problem" title="Creators are incredible at building audiences." />
+        <p class="problem-intro" data-reveal>But most have no clear understanding of:</p>
+        <ul class="problem-list" role="list">
+          {['What they actually made', 'What they owe in taxes', "Whether they're profitable", 'If brands still owe them money', 'How much they can safely pay themselves'].map((t, i) => (
+            <li data-reveal style={`--reveal-i:${i}`}><span class="q-mark" aria-hidden="true">?</span>{t}</li>
+          ))}
+        </ul>
+        <p class="hand problem-note" data-reveal>
+          This is where we come in.
+          <svg viewBox="0 0 120 40" aria-hidden="true"><path d="M4 30c30-18 62-24 96-10m0 0-10-10m10 10-13 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </p>
+      </div>
+      <WorkspaceImage class="problem-img" />
+    </div>
+  </section>
+
+  <!-- 3 · SERVICES -->
+  <section class="section" id="services">
+    <div class="container">
+      <SectionHeading
+        eyebrow="How we help"
+        title="Three ways to get financial clarity."
+        intro="Whether you need a one-time cleanup or ongoing support, we meet you where you are."
+        align="center"
+      />
+      <div class="services-grid">
+        <ServiceCard
+          index={0}
+          icon="sparkle"
+          title="Financial Cleanup"
+          subheading="Get your books up to date"
+          copy="Perfect for creators who have fallen behind. We organize your books, reconcile accounts, prepare financial statements, estimate taxes, and give you a clear picture of your business."
+          cta="Learn More"
+          href="/services/#financial-cleanup"
+        />
+        <ServiceCard
+          index={1}
+          featured
+          badge="Primary service"
+          icon="trend"
+          title="Monthly Financial Partnership"
+          subheading="Ongoing bookkeeping & fractional CFO"
+          copy="Ongoing financial guidance to help you stay organized and grow. Includes bookkeeping, financial reports, cash flow planning, budgeting, tax planning, and strategic decision support."
+          cta="Learn More"
+          href="/services/#financial-partnership"
+        />
+        <ServiceCard
+          index={2}
+          muted
+          icon="receipt"
+          title="Tax Preparation"
+          subheading="Coming soon"
+          copy="We'll soon offer tax preparation services through our team, helping make tax season simpler and less stressful."
+          cta="Join the Waitlist"
+          href="/services/#tax-services"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · PROCESS -->
+  <section class="section section-alt" id="process">
+    <div class="container">
+      <SectionHeading eyebrow="What working together looks like" title="A simple, proven process." />
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <!-- 5 · WHO WE WORK WITH -->
+  <section class="section">
+    <div class="container">
+      <div class="who-head">
+        <SectionHeading
+          eyebrow="We work with creators in"
+          title="All kinds of creative businesses."
+          intro="From influencers to course creators, we understand the unique financial needs of the creator economy."
+        />
+        <div data-reveal><Button href="/for-creators/" variant="ghost" arrow>Why creator finances are different</Button></div>
+      </div>
+      <CreatorCategories />
+    </div>
+  </section>
+
+  <!-- 6 · WHY CLARITY HAUS -->
+  <section class="section section-alt">
+    <div class="container split split-reverse">
+      <WorkspaceImage variant="shelf" alt="A bright, neutral creator studio with a ring light, open notebook, books, a plant, and a cup of coffee." />
+      <div>
+        <SectionHeading eyebrow="Why Clarity Haus" title="More than numbers.<br /><em>Peace of mind.</em>" />
+        <ul class="checklist" data-reveal>
+          <li>You always know your numbers</li>
+          <li>Never wonder what taxes you'll owe</li>
+          <li>Know when payments are missing</li>
+          <li>Make decisions confidently</li>
+          <li>Spend less time in spreadsheets</li>
+          <li>Grow with better financial data</li>
+        </ul>
+        <div class="why-cta" data-reveal><Button href="/about/" variant="secondary" arrow>About Clarity Haus</Button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · HEALTH CHECK -->
+  <section class="section health">
+    <div class="container health-grid">
+      <div>
+        <SectionHeading
+          eyebrow="Creator Finance Health Check"
+          title="How healthy are your business finances?"
+          intro="Answer 8 quick questions to get your Financial Clarity Score and personalized recommendations."
+        />
+        <div class="health-cta" data-reveal>
+          <Button href="/health-check/" size="lg" arrow>Take the Free Quiz</Button>
+          <p class="hand">Takes 2 minutes.</p>
+        </div>
+      </div>
+      <div data-reveal style="--reveal-i:1"><QuizPreview /></div>
+    </div>
+  </section>
+
+  <!-- 8 · TESTIMONIALS -->
+  <section class="section section-alt">
+    <div class="container">
+      <SectionHeading eyebrow="Testimonials" title="What creators are saying." align="center" />
+      <Testimonials />
+    </div>
+  </section>
+
+  <!-- 9 · FAQ -->
+  <section class="section" id="faq">
+    <div class="container faq-grid">
+      <div>
+        <SectionHeading eyebrow="FAQ" title="Common questions." />
+        <p class="muted" data-reveal>Still wondering about something? <a href="/contact/">Send us a note</a> and we'll get back to you.</p>
+      </div>
+      <FaqAccordion idPrefix="home-faq" />
+    </div>
+  </section>
+
+  <!-- 10 · FINAL CTA -->
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero { padding-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(4rem, 3rem + 4vw, 7rem); overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: center; }
+  .hero-copy { display: grid; gap: var(--space-6); }
+  .hero-copy h1 { max-width: 9.5em; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .trust { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+  .trust li { display: inline-flex; align-items: center; gap: 0.5em; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .trust :global(svg) { color: var(--color-green); }
+
+  /* Split layouts */
+  .split { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: center; }
+  .split-reverse { grid-template-columns: 1fr 1.05fr; }
+
+  /* Problem */
+  .problem-copy :global(.section-heading) { margin-bottom: var(--space-6); }
+  .problem-intro { font-size: var(--text-md); color: var(--color-text-muted); margin-bottom: var(--space-5); }
+  .problem-list { display: grid; gap: 0; border-top: 1px solid var(--color-border); }
+  .problem-list li { display: flex; align-items: center; gap: var(--space-4); padding: 1rem 0; border-bottom: 1px solid var(--color-border); font-size: var(--text-md); }
+  .q-mark { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--color-sage); color: var(--color-sage); display: grid; place-items: center; font-family: var(--font-serif); font-size: 1rem; }
+  .problem-note { display: inline-flex; align-items: flex-end; gap: 0.5rem; margin-top: var(--space-6); font-size: 2rem; transform: rotate(-2deg); }
+  .problem-note svg { width: 90px; color: var(--color-sage); }
+
+  /* Services */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); align-items: stretch; }
+
+  /* Who */
+  .who-head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-6); flex-wrap: wrap; }
+  .who-head > div:last-child { margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem); }
+
+  .why-cta { margin-top: var(--space-7); }
+
+  /* Health */
+  .health-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2.5rem, 1rem + 5vw, 5rem); align-items: center; }
+  .health-cta { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-5); }
+  .health-cta .hand { transform: rotate(-3deg); }
+
+  /* FAQ */
+  .faq-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start; }
+  .faq-grid a { color: var(--color-green); }
+
+  @media (max-width: 1000px) {
+    .hero-grid, .split, .split-reverse, .health-grid, .faq-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+    .hero-visual { max-width: 620px; }
+    :global(.problem-img), .split-reverse :global(.ws) { max-width: 520px; aspect-ratio: 4 / 3.4; }
+  }
+  @media (max-width: 480px) {
+    .hero-ctas :global(.btn) { width: 100%; }
+    .trust { flex-direction: column; gap: var(--space-3); }
+    .problem-note { font-size: 1.75rem; }
+  }
+</style>

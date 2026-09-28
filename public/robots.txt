@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /creator-email-finder.html
+
+Sitemap: https://itsclarityhaus.com/sitemap.xml

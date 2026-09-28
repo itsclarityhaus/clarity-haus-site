@@ -1,0 +1,20 @@
+---
+interface Props { light?: boolean }
+const { light = false } = Astro.props;
+---
+<a href="/" class:list={['logo', { light }]} aria-label="Clarity Haus home">CLARITY HAUS</a>
+
+<style>
+  .logo {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: var(--tracking-logo);
+    text-decoration: none;
+    color: var(--color-text);
+    white-space: nowrap;
+    /* offset trailing letter-spacing so it optically centers */
+    margin-right: calc(-1 * var(--tracking-logo));
+  }
+  .logo.light { color: var(--color-on-green); }
+</style>

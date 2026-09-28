@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import CreatorCategories from '../components/CreatorCategories.astro';
+import WorkspaceImage from '../components/WorkspaceImage.astro';
+import CtaSection from '../components/CtaSection.astro';
+
+const challenges = [
+  { icon: 'layers', title: 'Multiple revenue sources', text: 'Income arrives from many places at once, and each one needs to be tracked and categorized.' },
+  { icon: 'briefcase', title: 'Brand partnerships', text: 'Contracts, deliverables, and payment terms differ from deal to deal.' },
+  { icon: 'link', title: 'Affiliate income', text: 'Small, frequent payouts across programs that are easy to lose track of.' },
+  { icon: 'play', title: 'Platform payouts', text: 'Creator funds, ad revenue, and subscriptions, each with its own schedule and statements.' },
+  { icon: 'download', title: 'Digital products', text: 'Sales, fees, and platform deductions that need to reconcile to what actually hit your account.' },
+  { icon: 'chat', title: 'Consulting', text: 'Service income that sits alongside content income and needs its own tracking.' },
+  { icon: 'grad', title: 'Courses', text: 'Launch-driven revenue that can arrive in large, uneven waves.' },
+  { icon: 'megaphone', title: 'Sponsorships', text: 'Recurring or one-off sponsor revenue with its own invoicing and follow-up.' },
+  { icon: 'clock', title: 'Irregular payment timing', text: 'Work done this month may not be paid for 30, 60, or 90 days.' },
+  { icon: 'calendar', title: 'Quarterly taxes', text: 'No employer withholding, so estimated taxes need to be planned for all year.' },
+  { icon: 'wave', title: 'Large income swings', text: 'A strong quarter followed by a slow one makes planning and paying yourself harder.' },
+  { icon: 'receipt', title: 'Business expenses', text: 'Equipment, software, travel, and production costs that need to be captured and categorized.' },
+  { icon: 'userplus', title: 'Contractor payments', text: 'Editors, managers, and assistants who need to be paid and documented properly.' },
+  { icon: 'tag', title: 'Outstanding brand invoices', text: 'Money you have earned but not yet received, and knowing who to follow up with.' },
+];
+---
+<BaseLayout
+  title="For Creators | Why Creator Finances Are Different | Clarity Haus"
+  description="Brand deals, affiliate income, platform payouts, irregular payments, and quarterly taxes. Clarity Haus is the financial operations partner behind creator-led businesses."
+>
+  <PageHero
+    eyebrow="For creators"
+    title="Creator income isn't simple. <em>Your finances shouldn't feel impossible.</em>"
+    intro="A creator business can have a dozen income streams, payments that arrive months after the work, and no employer setting money aside for taxes. That's a real business, and it deserves real financial support."
+  >
+    <Button href="/contact/" size="lg" arrow>Get Financial Clarity</Button>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Why creator businesses are different"
+        title="The financial side of the creator economy."
+        intro="Most financial tools and bookkeeping setups were built for businesses with one product and predictable payroll. Creator businesses rarely look like that."
+      />
+      <ul class="ch-grid" role="list">
+        {challenges.map((c, i) => (
+          <li class="ch" data-reveal style={`--reveal-i:${i % 4}`}>
+            <span class="ch-icon"><Icon name={c.icon} size={22} /></span>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container split">
+      <div>
+        <SectionHeading
+          eyebrow="Your financial operations partner"
+          title="The business behind the content, <em>handled.</em>"
+          intro="Clarity Haus acts as the financial operations partner behind a creator-led business. We keep the books organized, track every revenue stream, follow what's still owed, and help you plan for taxes and big decisions."
+        />
+        <ul class="checklist" data-reveal>
+          <li>I finally understand my business.</li>
+          <li>I know what my numbers mean.</li>
+          <li>I know what I can spend.</li>
+          <li>I know what I owe.</li>
+          <li>I know what to do next.</li>
+        </ul>
+        <div class="split-cta" data-reveal><Button href="/services/" variant="secondary" arrow>See Services</Button></div>
+      </div>
+      <WorkspaceImage />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="We work with creators in" title="All kinds of creative businesses." intro="From influencers to course creators, we understand the unique financial needs of the creator economy." />
+      <CreatorCategories />
+    </div>
+  </section>
+
+  <CtaSection eyebrow="Ready for financial clarity?" title="Get a clear picture of the business you've built." button="Get Financial Clarity" />
+</BaseLayout>
+
+<style>
+  .ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-4); }
+  .ch {
+    display: grid; gap: var(--space-3); align-content: start;
+    padding: 1.6rem;
+    background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  }
+  .ch-icon { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--color-sage-light); color: var(--color-green); margin-bottom: var(--space-2); }
+  .ch h3 { font-size: var(--text-base); }
+  .ch p { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .split { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: center; }
+  .split-cta { margin-top: var(--space-7); }
+  @media (max-width: 960px) {
+    .split { grid-template-columns: 1fr; }
+    .split :global(.ws) { max-width: 520px; aspect-ratio: 4 / 3.4; }
+  }
+</style>

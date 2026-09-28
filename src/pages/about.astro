@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import CtaSection from '../components/CtaSection.astro';
+
+// ► FOUNDER DETAILS — fill these in when ready.
+// Leave a field as '' to keep showing its placeholder.
+const founder = {
+  name: 'Cole',
+  role: 'Founder, Clarity Haus',
+  photo: '', // e.g. '/images/cole.jpg' (place the file in /public/images/)
+  bio: [] as string[], // one string per paragraph
+  credentials: [] as string[], // e.g. ['…', '…'] — only list what you want public
+};
+---
+<BaseLayout
+  title="About | Clarity Haus"
+  description="Clarity Haus gives creators financial clarity: where their money comes from, where it goes, what to plan for, and what their numbers actually mean."
+>
+  <PageHero eyebrow="About Clarity Haus" title="Financial expertise for the business <em>behind the content.</em>" />
+
+  <section class="section">
+    <div class="container-narrow story">
+      <p class="story-lead serif" data-reveal>Creator businesses can grow incredibly quickly, but the financial systems behind them often don't grow at the same pace.</p>
+      <p class="story-mark serif" data-reveal>Clarity Haus exists to fix that.</p>
+      <p data-reveal>We help creators understand where their money is coming from, where it's going, what they should be planning for, and what their numbers actually mean.</p>
+      <p data-reveal>Our goal isn't to overwhelm you with spreadsheets or accounting terminology.</p>
+      <p class="story-mark serif" data-reveal>It's to give you clarity.</p>
+      <p data-reveal>Because when you understand your numbers, you can make better decisions about your business, your money, and your future.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt" aria-labelledby="founder-h">
+    <div class="container founder">
+      <div class="founder-photo" data-reveal>
+        {founder.photo ? (
+          <img src={founder.photo} alt={`${founder.name}, founder of Clarity Haus`} width="800" height="1000" loading="lazy" decoding="async" />
+        ) : (
+          <div class="photo-ph" role="img" aria-label="Founder photo coming soon">
+            <Icon name="users" size={36} />
+            <span class="placeholder-note">Founder photo — add later</span>
+          </div>
+        )}
+      </div>
+      <div class="founder-copy">
+        <SectionHeading eyebrow="Meet the founder" title={founder.name} />
+        <p class="founder-role" data-reveal>{founder.role}</p>
+        <div class="founder-bio" data-reveal>
+          {founder.bio.length > 0 ? founder.bio.map((p) => <p>{p}</p>) : (
+            <div class="ph-block">
+              <span class="placeholder-note">Founder bio — add later</span>
+              <p class="muted">A short introduction to Cole: background, why he started Clarity Haus, and how he works with creators.</p>
+            </div>
+          )}
+        </div>
+        <div class="founder-creds" data-reveal>
+          <h3>Background &amp; credentials</h3>
+          {founder.credentials.length > 0 ? (
+            <ul class="checklist">{founder.credentials.map((c) => <li>{c}</li>)}</ul>
+          ) : (
+            <div class="ph-block"><span class="placeholder-note">Credentials — add later</span></div>
+          )}
+        </div>
+        <div data-reveal><Button href="/contact/" arrow>Book a Discovery Call</Button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="What we believe" title="Clarity, not just accounting." align="center" />
+      <div class="values">
+        {[
+          { icon: 'compass', t: 'Clarity first', d: 'Numbers are only useful when you understand what they mean for your next decision.' },
+          { icon: 'sparkle', t: 'Built for creators', d: 'Brand deals, affiliate payouts, launches, and income swings are the norm here, not the exception.' },
+          { icon: 'chat', t: 'Plain language', d: 'No accounting jargon for its own sake. You get clear answers you can act on.' },
+        ].map((v, i) => (
+          <div class="value card" data-reveal style={`--reveal-i:${i}`}>
+            <span class="v-icon"><Icon name={v.icon} size={24} /></span>
+            <h3>{v.t}</h3>
+            <p class="muted">{v.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .story { display: grid; gap: var(--space-5); font-size: var(--text-md); color: var(--color-text-muted); }
+  .story-lead { font-size: var(--text-2xl); line-height: 1.2; color: var(--color-text); }
+  .story-mark { font-size: var(--text-xl); color: var(--color-green); font-style: italic; }
+
+  .founder { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: start; }
+  .founder-photo img, .photo-ph { width: 100%; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); object-fit: cover; }
+  .photo-ph { display: grid; place-content: center; justify-items: center; gap: var(--space-4); background: var(--color-sage-light); border: 1px dashed var(--color-sage); color: var(--color-sage); }
+  .founder-copy { display: grid; gap: var(--space-5); }
+  .founder-copy :global(.section-heading) { margin-bottom: 0; }
+  .founder-role { color: var(--color-text-muted); margin-top: calc(-1 * var(--space-3)); }
+  .founder-bio { display: grid; gap: var(--space-4); }
+  .founder-creds h3 { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-sage); margin-bottom: var(--space-4); }
+  .ph-block { display: grid; gap: var(--space-3); justify-items: start; padding: 1.25rem; border: 1px dashed var(--color-border); border-radius: var(--radius-md); }
+
+  .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+  .value { padding: 2rem; display: grid; gap: var(--space-3); align-content: start; }
+  .v-icon { color: var(--color-green); margin-bottom: var(--space-2); }
+
+  @media (max-width: 900px) {
+    .founder, .values { grid-template-columns: 1fr; }
+    .founder-photo { max-width: 420px; }
+  }
+</style>

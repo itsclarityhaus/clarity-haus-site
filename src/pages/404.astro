@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+<BaseLayout title="Page Not Found | Clarity Haus" description="This page could not be found." noindex>
+  <section class="msg">
+    <div class="container-narrow">
+      <p class="eyebrow">404</p>
+      <h1>This page is <em>out of the books.</em></h1>
+      <p class="lead">The page you're looking for doesn't exist or has moved.</p>
+      <div class="ctas">
+        <Button href="/" arrow>Back to home</Button>
+        <Button href="/contact/" variant="secondary">Book a Call</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .msg { padding-block: clamp(5rem, 3rem + 8vw, 10rem); text-align: center; }
+  .msg .container-narrow { display: grid; gap: var(--space-5); justify-items: center; }
+  .msg h1 { font-size: var(--text-3xl); }
+  .ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
+</style>

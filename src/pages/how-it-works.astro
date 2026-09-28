@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import CtaSection from '../components/CtaSection.astro';
+---
+<BaseLayout
+  title="How It Works | Clarity Haus"
+  description="A simple, proven process: discovery call, financial review, recommendations, clean books or ongoing support, and an ongoing partnership so you always know your numbers."
+>
+  <PageHero
+    eyebrow="What working together looks like"
+    title="A simple, <em>proven process.</em>"
+    intro="From the first conversation to ongoing support, every step is designed to give you a clearer picture of your business."
+  >
+    <Button href="/contact/" size="lg" arrow>Book a Discovery Call</Button>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <SectionHeading eyebrow="Two ways to start" title="Start where you are." intro="Whether you need a one-time cleanup or ongoing support, we meet you where you are." />
+      <div class="paths">
+        <article class="path card" data-reveal>
+          <span class="p-icon"><Icon name="sparkle" size={24} /></span>
+          <p class="p-tag">If you're behind</p>
+          <h3 class="serif">Financial Cleanup</h3>
+          <p class="muted">We get your books up to date, reconcile your accounts, and give you a clear picture of where your business stands. A standalone project, with the option to continue afterward.</p>
+          <Button href="/services/#financial-cleanup" variant="ghost" arrow>Learn more</Button>
+        </article>
+        <article class="path card path-primary" data-reveal style="--reveal-i:1">
+          <span class="p-icon"><Icon name="trend" size={24} /></span>
+          <p class="p-tag">If you want ongoing support</p>
+          <h3 class="serif">Ongoing Financial Partnership</h3>
+          <p>Monthly or quarterly bookkeeping, financial reports, cash flow planning, tax planning, and decision support, so you always know your numbers.</p>
+          <Button href="/services/#financial-partnership" variant="ghost" arrow class="on-green">Learn more</Button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow expect">
+      <SectionHeading eyebrow="What to expect" title="What the discovery call covers." />
+      <ul class="checklist" data-reveal>
+        <li>How your business earns money today and where it's headed</li>
+        <li>How your finances are currently tracked, and what's missing</li>
+        <li>Your biggest questions about taxes, cash flow, or paying yourself</li>
+        <li>Whether a Financial Cleanup, ongoing partnership, or both makes sense</li>
+      </ul>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  .path { padding: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); display: grid; gap: var(--space-4); align-content: start; justify-items: start; }
+  .p-icon { width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; background: var(--color-sage-light); color: var(--color-green); }
+  .p-tag { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-sage); font-weight: 600; }
+  .path h3 { font-size: var(--text-2xl); font-weight: 400; line-height: 1.1; }
+  .path-primary { background: var(--color-green); border-color: var(--color-green); color: var(--color-on-green); }
+  .path-primary .p-icon { background: rgba(248, 247, 242, 0.12); color: var(--color-on-green); }
+  .path-primary .p-tag, .path-primary p { color: var(--color-on-green-muted); }
+  .path-primary :global(.on-green) { color: var(--color-on-green); }
+  @media (max-width: 800px) { .paths { grid-template-columns: 1fr; } }
+</style>

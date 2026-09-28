@@ -1,0 +1,62 @@
+---
+// Visual preview of the Health Check (the working quiz lives at /health-check/).
+import Button from './Button.astro';
+const score = 42;
+const r = 44;
+const c = 2 * Math.PI * r;
+---
+<div class="qp" aria-hidden="true">
+  <div class="qp-card qp-question">
+    <div class="qp-top">
+      <span>Question 3 of 8</span>
+      <span class="qp-bar"><span style="width: 37.5%"></span></span>
+    </div>
+    <p class="qp-q serif">Do you know last month's profit?</p>
+    <ul class="qp-opts" role="list">
+      <li>Yes</li>
+      <li class="is-picked">Not sure</li>
+      <li>No</li>
+    </ul>
+  </div>
+
+  <div class="qp-card qp-result">
+    <div class="ring-wrap">
+    <svg viewBox="0 0 100 100" class="ring">
+      <circle cx="50" cy="50" r={r} class="ring-bg" />
+      <circle cx="50" cy="50" r={r} class="ring-fg" stroke-dasharray={c} stroke-dashoffset={c * (1 - score / 100)} />
+    </svg>
+    <p class="score"><span class="serif">{score}</span> / 100</p>
+    </div>
+    <p class="score-label">Your Financial Clarity Score</p>
+    <p class="score-copy">You're not alone, and there's a lot of opportunity to improve.</p>
+    <Button href="/contact/" tabindex="-1">Book a Call</Button>
+  </div>
+</div>
+
+<style>
+  .qp { position: relative; display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-4); align-items: center; }
+  .qp-card { background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 1.6rem; }
+  .qp-top { display: grid; gap: 10px; font-size: var(--text-xs); color: var(--color-text-muted); }
+  .qp-bar { height: 4px; border-radius: 9px; background: var(--color-sage-light); overflow: hidden; }
+  .qp-bar span { display: block; height: 100%; background: var(--color-green); border-radius: 9px; }
+  .qp-q { font-size: 1.6rem; line-height: 1.15; margin: 1.25rem 0; }
+  .qp-opts { display: grid; gap: 8px; }
+  .qp-opts li { padding: 0.8rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: var(--text-sm); }
+  .qp-opts .is-picked { border-color: var(--color-green); background: var(--color-sage-light); color: var(--color-green); font-weight: 500; }
+
+  .qp-result { display: grid; justify-items: center; text-align: center; gap: 0.5rem; transform: translateY(28px); }
+  .ring { width: 110px; transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: var(--color-sage-light); stroke-width: 7; }
+  .ring-fg { fill: none; stroke: var(--color-green); stroke-width: 7; stroke-linecap: round; }
+  .ring-wrap { position: relative; margin-bottom: 0.5rem; }
+  .score { position: absolute; inset: 0; display: flex; align-items: baseline; justify-content: center; gap: 2px; padding-top: 34px; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .score .serif { font-size: 2.1rem; line-height: 1; color: var(--color-text); }
+  .score-label { font-weight: 600; font-size: var(--text-sm); }
+  .score-copy { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: 0.5rem; }
+  .qp-result :global(.btn) { min-height: 42px; padding: 0.55rem 1.2rem; }
+
+  @media (max-width: 640px) {
+    .qp { grid-template-columns: 1fr; }
+    .qp-result { transform: none; }
+  }
+</style>

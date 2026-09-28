@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+---
+<BaseLayout title="Thank You | Clarity Haus" description="Thanks for reaching out to Clarity Haus." noindex>
+  <section class="msg">
+    <div class="container-narrow">
+      <span class="tick" aria-hidden="true">✓</span>
+      <p class="eyebrow">Received</p>
+      <h1>Thank you. <em>We'll be in touch.</em></h1>
+      <p class="lead">Your message is on its way. We'll review it and follow up by email soon.</p>
+      <div class="ctas">
+        <Button href="/" arrow>Back to home</Button>
+        <Button href="/health-check/" variant="secondary">Take the Health Check</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .msg { padding-block: clamp(5rem, 3rem + 8vw, 10rem); text-align: center; }
+  .msg .container-narrow { display: grid; gap: var(--space-5); justify-items: center; }
+  .msg h1 { font-size: var(--text-3xl); }
+  .tick { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--color-sage-light); color: var(--color-green); font-size: 1.6rem; }
+  .ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
+</style>

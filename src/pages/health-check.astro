@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+
+// ► Edit questions / recommendations here. Scoring: Yes = 2, Not sure = 1, No = 0.
+const questions = [
+  { q: 'Are your business and personal finances kept in separate accounts?', rec: 'Separate business and personal accounts so your numbers reflect the business alone.' },
+  { q: 'Are your books up to date through last month?', rec: 'Bring your books current. Everything else depends on accurate, up-to-date records.' },
+  { q: "Do you know last month's profit?", rec: 'Start reviewing a monthly profit and loss statement so you know what you actually made.' },
+  { q: 'Do you set money aside for taxes from every payment?', rec: 'Build a tax set-aside habit and plan for estimated taxes so tax time holds no surprises.' },
+  { q: 'Do you know which brand invoices are still unpaid?', rec: "Track outstanding invoices so you always know who still owes you and when to follow up." },
+  { q: 'Do you pay yourself a consistent, planned amount?', rec: 'Set a planned owner pay amount based on profit and cash, not on what happens to be in the account.' },
+  { q: 'Do you know how many months your business could run if income paused?', rec: 'Calculate your cash runway so you know how much cushion the business really has.' },
+  { q: 'Do you review your numbers at least once a month?', rec: 'Put a monthly financial review on the calendar so decisions are based on current data.' },
+];
+const options = [
+  { label: 'Yes', value: 2 },
+  { label: 'Not sure', value: 1 },
+  { label: 'No', value: 0 },
+];
+---
+<BaseLayout
+  title="Creator Finance Health Check | Get Your Financial Clarity Score | Clarity Haus"
+  description="Answer 8 quick questions to get your Financial Clarity Score and personalized recommendations for your creator business. Free, takes 2 minutes."
+>
+  <section class="hc">
+    <div class="container-narrow">
+      <header class="hc-head">
+        <p class="eyebrow">Creator Finance Health Check</p>
+        <h1>How healthy are your <em>business finances?</em></h1>
+        <p class="lead">Answer 8 quick questions to get your Financial Clarity Score and personalized recommendations.</p>
+        <p class="hand">Takes 2 minutes.</p>
+      </header>
+
+      <form class="card quiz" data-quiz novalidate>
+        <div class="quiz-top">
+          <span data-progress-label>Question 1 of {questions.length}</span>
+          <span class="bar"><span data-progress style="width: 12.5%"></span></span>
+        </div>
+
+        {questions.map((item, i) => (
+          <fieldset class="qstep" data-step={i}>
+            <legend class="serif">{item.q}</legend>
+            <div class="opts">
+              {options.map((o) => (
+                <label class="opt">
+                  <input type="radio" name={`q${i}`} value={o.value} data-rec={item.rec} required />
+                  <span>{o.label}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+
+        <div class="quiz-nav">
+          <button type="button" class="btn btn-secondary" data-back disabled>Back</button>
+          <p class="quiz-hint" data-hint aria-live="polite"></p>
+        </div>
+        <noscript><p class="muted">The Health Check needs JavaScript to calculate your score. You can also <a href="/contact/">book a call</a> and we'll walk through it together.</p></noscript>
+      </form>
+
+      <section class="card result" data-result hidden aria-live="polite" tabindex="-1">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring" aria-hidden="true">
+            <circle cx="60" cy="60" r="52" class="ring-bg" />
+            <circle cx="60" cy="60" r="52" class="ring-fg" data-ring />
+          </svg>
+          <p class="score"><span class="serif" data-score>0</span><span>/ 100</span></p>
+        </div>
+        <p class="r-label">Your Financial Clarity Score</p>
+        <h2 class="r-title" data-title></h2>
+        <p class="r-copy muted" data-copy></p>
+
+        <div class="recs" data-recs-wrap>
+          <h3>Your personalized recommendations</h3>
+          <ul class="checklist" data-recs></ul>
+        </div>
+
+        <div class="r-ctas">
+          <Button href="/contact/" size="lg" arrow data-book>Book a Call</Button>
+          <button type="button" class="btn btn-secondary btn-lg" data-restart>Retake the quiz</button>
+        </div>
+        <p class="fine">This score is a general self-assessment for educational purposes, not a financial review of your business.</p>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hc { padding-block: clamp(3rem, 2rem + 4vw, 6rem); }
+  .hc-head { display: grid; gap: var(--space-5); justify-items: center; text-align: center; margin-bottom: var(--space-7); }
+  .hc-head h1 { font-size: var(--text-3xl); max-width: 13em; }
+  .hc-head .hand { transform: rotate(-2deg); }
+
+  .quiz { padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); box-shadow: var(--shadow-md); display: grid; gap: var(--space-6); }
+  .quiz-top { display: grid; gap: 10px; font-size: var(--text-sm); color: var(--color-text-muted); }
+  .bar { height: 5px; border-radius: 9px; background: var(--color-sage-light); overflow: hidden; }
+  .bar span { display: block; height: 100%; background: var(--color-green); border-radius: 9px; transition: width 0.4s var(--ease); }
+
+  .qstep { border: 0; padding: 0; margin: 0; min-width: 0; }
+  :global(.js) .qstep:not(.is-current) { display: none; }
+  .qstep + .qstep { margin-top: var(--space-6); }
+  :global(.js) .qstep + .qstep { margin-top: 0; }
+  .qstep legend { font-size: var(--text-2xl); line-height: 1.15; margin-bottom: var(--space-5); padding: 0; }
+  .opts { display: grid; gap: var(--space-3); }
+  .opt { position: relative; display: block; cursor: pointer; }
+  .opt input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .opt span {
+    display: flex; align-items: center; min-height: 56px; padding: 0 1.25rem;
+    border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-white);
+    font-weight: 500; transition: border-color 0.2s, background 0.2s;
+  }
+  .opt:hover span { border-color: var(--color-sage); }
+  .opt input:checked + span { border-color: var(--color-green); background: var(--color-sage-light); color: var(--color-green); }
+  .opt input:focus-visible + span { outline: 2px solid var(--color-green); outline-offset: 2px; }
+
+  .quiz-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+  .quiz-nav .btn:disabled { opacity: 0.4; cursor: default; }
+  .quiz-hint { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+  .result { padding: clamp(2rem, 1.5rem + 3vw, 3.5rem); display: grid; justify-items: center; text-align: center; gap: var(--space-4); box-shadow: var(--shadow-md); }
+  .result:focus { outline: none; }
+  .ring-wrap { position: relative; width: 150px; }
+  .ring { width: 150px; transform: rotate(-90deg); }
+  .ring-bg { fill: none; stroke: var(--color-sage-light); stroke-width: 8; }
+  .ring-fg { fill: none; stroke: var(--color-green); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1.2s var(--ease); }
+  .score { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 4px; color: var(--color-text-muted); font-size: var(--text-sm); }
+  .score .serif { font-size: 3rem; line-height: 1; color: var(--color-text); }
+  .r-label { font-weight: 600; font-size: var(--text-sm); letter-spacing: 0.02em; }
+  .r-title { font-size: var(--text-2xl); }
+  .r-copy { max-width: 32em; }
+  .recs { width: 100%; text-align: left; padding: 1.5rem; margin-top: var(--space-4); border-radius: var(--radius-md); background: var(--color-bg); border: 1px solid var(--color-border); }
+  .recs h3 { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-sage); margin-bottom: var(--space-4); }
+  .recs .checklist li { font-size: var(--text-base); }
+  .r-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center; margin-top: var(--space-4); }
+  .fine { font-size: var(--text-xs); color: var(--color-text-muted); max-width: 34em; }
+  @media (max-width: 480px) { .r-ctas > * { width: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .ring-fg, .bar span { transition: none; } }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-quiz]')!;
+  const steps = Array.from(form.querySelectorAll<HTMLFieldSetElement>('[data-step]'));
+  const back = form.querySelector<HTMLButtonElement>('[data-back]')!;
+  const label = form.querySelector('[data-progress-label]')!;
+  const bar = form.querySelector<HTMLElement>('[data-progress]')!;
+  const hint = form.querySelector('[data-hint]')!;
+  const result = document.querySelector<HTMLElement>('[data-result]')!;
+  const total = steps.length;
+  let current = 0;
+
+  const show = (i: number) => {
+    current = i;
+    steps.forEach((s, n) => s.classList.toggle('is-current', n === i));
+    label.textContent = `Question ${i + 1} of ${total}`;
+    bar.style.width = `${((i + 1) / total) * 100}%`;
+    back.disabled = i === 0;
+    hint.textContent = i === total - 1 ? 'Last one' : '';
+  };
+
+  steps.forEach((step, i) => {
+    step.addEventListener('change', () => {
+      setTimeout(() => (i < total - 1 ? (show(i + 1), steps[i + 1].querySelector('input')?.focus({ preventScroll: true })) : finish()), 220);
+    });
+  });
+  back.addEventListener('click', () => current > 0 && show(current - 1));
+
+  const tiers = [
+    { max: 39, title: "Let's get you a clearer picture.", copy: "You're not alone, and there's a lot of opportunity to improve. A Financial Cleanup is usually the best first step.", service: 'cleanup' },
+    { max: 69, title: 'A foundation with a few gaps.', copy: "You're not alone, and there's a lot of opportunity to improve. Closing these gaps can make your numbers far more useful.", service: 'unsure' },
+    { max: 100, title: 'You have strong financial clarity.', copy: 'Your finances are in good shape. Ongoing support can help keep them that way as your business grows.', service: 'monthly' },
+  ];
+
+  function finish() {
+    const picked = steps.map((s) => s.querySelector<HTMLInputElement>('input:checked'));
+    const sum = picked.reduce((a, el) => a + Number(el?.value ?? 0), 0);
+    const score = Math.round((sum / (total * 2)) * 100);
+    const tier = tiers.find((t) => score <= t.max)!;
+    const recs = picked.filter((el) => el && Number(el.value) < 2).map((el) => el!.dataset.rec!);
+
+    form.hidden = true;
+    result.hidden = false;
+    (result.querySelector('[data-title]')!).textContent = tier.title;
+    (result.querySelector('[data-copy]')!).textContent = tier.copy;
+    const list = result.querySelector('[data-recs]')!;
+    list.innerHTML = '';
+    recs.slice(0, 4).forEach((r) => { const li = document.createElement('li'); li.textContent = r; list.appendChild(li); });
+    result.querySelector<HTMLElement>('[data-recs-wrap]')!.hidden = recs.length === 0;
+    result.querySelector<HTMLAnchorElement>('[data-book]')!.href = `/contact/?service=${tier.service}&score=${score}`;
+
+    const ring = result.querySelector<SVGCircleElement>('[data-ring]')!;
+    const c = 2 * Math.PI * 52;
+    ring.style.strokeDasharray = String(c);
+    ring.style.strokeDashoffset = String(c);
+    const scoreEl = result.querySelector('[data-score]')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    requestAnimationFrame(() => requestAnimationFrame(() => { ring.style.strokeDashoffset = String(c * (1 - score / 100)); }));
+    if (reduce) scoreEl.textContent = String(score);
+    else {
+      const t0 = performance.now();
+      const tick = (t: number) => { const p = Math.min(1, (t - t0) / 1100); scoreEl.textContent = String(Math.round(score * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    }
+    result.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    result.focus({ preventScroll: true });
+  }
+
+  result.querySelector('[data-restart]')!.addEventListener('click', () => {
+    form.reset();
+    result.hidden = true;
+    form.hidden = false;
+    show(0);
+    form.scrollIntoView({ block: 'start' });
+  });
+
+  show(0);
+</script>

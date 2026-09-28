@@ -1,0 +1,51 @@
+---
+import Button from './Button.astro';
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  button?: string;
+  href?: string;
+  text?: string;
+}
+const {
+  eyebrow = 'Ready for financial clarity?',
+  title = "Let's build a stronger, more confident business together.",
+  button = 'Book Your Discovery Call',
+  href = '/contact/',
+  text,
+} = Astro.props;
+---
+<section class="cta-wrap" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="cta" data-reveal>
+      <svg class="cta-lines" viewBox="0 0 600 600" aria-hidden="true">
+        <circle cx="300" cy="300" r="120" /><circle cx="300" cy="300" r="190" /><circle cx="300" cy="300" r="260" />
+      </svg>
+      <p class="eyebrow cta-eyebrow">{eyebrow}</p>
+      <h2 id="cta-title">{title}</h2>
+      {text && <p class="cta-text">{text}</p>}
+      <Button href={href} variant="light" size="lg" arrow>{button}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-wrap { padding-block: var(--section-pad); }
+  .cta {
+    position: relative; overflow: hidden; isolation: isolate;
+    display: grid; justify-items: center; gap: var(--space-6);
+    text-align: center;
+    padding: clamp(3.5rem, 2rem + 6vw, 7rem) clamp(1.5rem, 1rem + 4vw, 5rem);
+    background: var(--color-green);
+    color: var(--color-on-green);
+    border-radius: calc(var(--radius-lg) + 6px);
+  }
+  .cta h2 { max-width: 16em; font-size: var(--text-3xl); }
+  .cta-eyebrow { color: var(--color-on-green-muted); }
+  .cta-text { color: var(--color-on-green-muted); max-width: 34em; }
+  .cta-lines {
+    position: absolute; z-index: -1; width: 720px; right: -260px; top: 50%; transform: translateY(-50%);
+    fill: none; stroke: rgba(248, 247, 242, 0.09); stroke-width: 1;
+  }
+  @media (max-width: 640px) { .cta-lines { right: -420px; } }
+</style>

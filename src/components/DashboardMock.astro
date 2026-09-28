@@ -1,0 +1,149 @@
+---
+// Decorative, non-functional financial dashboard for the hero.
+// Numbers are illustrative sample figures, not client data.
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+const revenue = [6.2, 7.8, 7.1, 9.4, 8.6, 10.9, 9.8, 11.6, 12.9]; // $k
+const max = 14;
+const chartH = 120;
+const barW = 18;
+const gap = 14;
+---
+<figure class="dash" role="img" aria-label="Sample Clarity Haus financial dashboard showing total revenue of $84,320, profit of $28,450, upcoming taxes of $12,600, outstanding invoices of $8,200, cash available of $41,720, and a projected runway of 8 months.">
+  <div class="dash-window" aria-hidden="true">
+    <div class="dash-chrome">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dash-url">app.clarityhaus · Overview</span>
+    </div>
+
+    <div class="dash-body">
+      <div class="dash-top">
+        <div>
+          <p class="dash-kicker">Year to date</p>
+          <p class="dash-title">Business overview</p>
+        </div>
+        <span class="dash-pill">Sep 2026</span>
+      </div>
+
+      <div class="dash-hero">
+        <div class="dash-hero-num">
+          <p class="k-label">Total Revenue</p>
+          <p class="k-big">$84,320</p>
+          <p class="k-delta">▲ 18% vs. last year</p>
+        </div>
+        <svg class="dash-chart" viewBox={`0 0 ${months.length * (barW + gap) - gap} ${chartH + 18}`} preserveAspectRatio="xMidYMax meet">
+          <line x1="0" x2="100%" y1={chartH} y2={chartH} class="base" />
+          {revenue.map((v, i) => {
+            const h = (v / max) * chartH;
+            const x = i * (barW + gap);
+            const y = chartH - h;
+            const last = i === revenue.length - 1;
+            return (
+              <g>
+                <path
+                  d={`M${x},${chartH} V${y + 4} Q${x},${y} ${x + 4},${y} H${x + barW - 4} Q${x + barW},${y} ${x + barW},${y + 4} V${chartH} Z`}
+                  class={last ? 'bar bar-now' : 'bar'}
+                />
+                <text x={x + barW / 2} y={chartH + 14} class="tick">{months[i]}</text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+
+      <div class="dash-grid">
+        <div class="tile"><p class="k-label">Profit</p><p class="k-num">$28,450</p><p class="k-sub">33.7% margin</p></div>
+        <div class="tile"><p class="k-label">Upcoming Taxes</p><p class="k-num">$12,600</p><p class="k-sub">Q3 estimate · set aside</p></div>
+        <div class="tile"><p class="k-label">Outstanding Invoices</p><p class="k-num">$8,200</p><p class="k-sub">3 brand deals</p></div>
+        <div class="tile"><p class="k-label">Cash Available</p><p class="k-num">$41,720</p><p class="k-sub">Across 2 accounts</p></div>
+      </div>
+
+      <div class="runway">
+        <div class="runway-head">
+          <p class="k-label">Projected Runway</p>
+          <p class="runway-num">8 months</p>
+        </div>
+        <div class="runway-track"><span style="width: 66%"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="float-card" aria-hidden="true">
+    <span class="float-icon">✓</span>
+    <div>
+      <p class="float-title">Books reconciled</p>
+      <p class="float-sub">August closed · 2 days ago</p>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .dash { position: relative; margin: 0; padding: 0 0 2.5rem; }
+  .dash-window {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    font-family: var(--font-sans);
+  }
+  .dash-chrome {
+    display: flex; align-items: center; gap: 6px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border);
+    background: #FBFBF8;
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--color-border); }
+  .dash-url { margin-left: 12px; font-size: 11px; color: var(--color-text-muted); background: var(--color-bg-alt); padding: 3px 12px; border-radius: var(--radius-pill); }
+  .dash-body { padding: clamp(16px, 2.2vw, 26px); display: grid; gap: 16px; }
+  .dash-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .dash-kicker { font-size: 11px; color: var(--color-text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .dash-title { font-family: var(--font-serif); font-size: 1.5rem; line-height: 1.1; }
+  .dash-pill { font-size: 11px; padding: 4px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-pill); color: var(--color-text-muted); }
+
+  .dash-hero {
+    display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: end;
+    padding: 16px; border-radius: var(--radius-md); background: var(--color-bg);
+  }
+  .k-label { font-size: 11px; color: var(--color-text-muted); font-weight: 500; }
+  .k-big { font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.1rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .k-delta { font-size: 11px; color: var(--color-green); font-weight: 500; margin-top: 2px; }
+  .dash-chart { width: 100%; height: auto; max-height: 120px; }
+  .bar { fill: var(--color-sage-light); }
+  .bar-now { fill: var(--color-green); }
+  .base { stroke: var(--color-border); stroke-width: 1; }
+  .tick { font-size: 9px; fill: var(--color-text-muted); text-anchor: middle; font-family: var(--font-sans); }
+
+  .dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .tile { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px 14px; }
+  .k-num { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .k-sub { font-size: 10.5px; color: var(--color-text-muted); }
+
+  .runway { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 12px 14px; display: grid; gap: 10px; }
+  .runway-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .runway-num { font-weight: 600; font-size: 0.95rem; }
+  .runway-track { height: 6px; border-radius: 99px; background: var(--color-sage-light); overflow: hidden; }
+  .runway-track span { display: block; height: 100%; border-radius: 99px; background: var(--color-green); }
+
+  .float-card {
+    position: absolute; left: -28px; bottom: 0;
+    display: flex; align-items: center; gap: 12px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    box-shadow: var(--shadow-md);
+  }
+  .float-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--color-sage-light); color: var(--color-green); display: grid; place-items: center; font-size: 14px; font-weight: 700; }
+  .float-title { font-size: 13px; font-weight: 600; line-height: 1.2; }
+  .float-sub { font-size: 11px; color: var(--color-text-muted); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .float-card { animation: bob 6s var(--ease) infinite; }
+    @keyframes bob { 50% { transform: translateY(-6px); } }
+  }
+  @media (max-width: 1100px) { .float-card { left: 12px; } }
+  @media (max-width: 420px) {
+    .dash-hero { grid-template-columns: 1fr; }
+    .k-sub { display: none; }
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+import { site } from '../data/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+const footerNav = [
+  { label: 'Services', href: '/services/' },
+  { label: 'How It Works', href: '/how-it-works/' },
+  { label: 'For Creators', href: '/for-creators/' },
+  { label: 'About', href: '/about/' },
+  { label: 'FAQ', href: '/faq/' },
+];
+const moreNav = [
+  { label: 'Book a Call', href: '/contact/' },
+  { label: 'Finance Health Check', href: '/health-check/' },
+  { label: 'Tax Waitlist', href: '/services/#tax-services' },
+];
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Logo light />
+      <p class="footer-tag serif">{site.tagline}</p>
+      <p class="footer-pos">{site.positioning}</p>
+    </div>
+
+    <nav aria-label="Footer" class="footer-col">
+      <h2 class="footer-h">Explore</h2>
+      <ul role="list">{footerNav.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </nav>
+
+    <nav aria-label="Get started" class="footer-col">
+      <h2 class="footer-h">Get started</h2>
+      <ul role="list">{moreNav.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </nav>
+
+    <div class="footer-col">
+      <h2 class="footer-h">Contact</h2>
+      <ul role="list">
+        <li><a href={`mailto:${site.email}`} class="with-icon"><Icon name="mail" size={16} />{site.email}</a></li>
+        <li class="muted-light">Virtual &amp; nationwide (U.S.)</li>
+      </ul>
+      <ul role="list" class="socials">
+        {site.socials.map((s) => (
+          <li><a href={s.href} rel={s.href.startsWith('http') ? 'noopener' : undefined} target={s.href.startsWith('http') ? '_blank' : undefined}>{s.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© {year} Clarity Haus. All rights reserved.</p>
+    <p class="disclaimer">
+      Clarity Haus provides bookkeeping, financial reporting, and advisory services. Clarity Haus is not a CPA firm and does not provide audit, review, or attest services. Nothing on this site is legal advice.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--color-green); color: var(--color-on-green); padding-top: clamp(4rem, 3rem + 4vw, 6rem); }
+  .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.3fr; gap: var(--space-7); }
+  .footer-brand { display: grid; gap: var(--space-4); align-content: start; max-width: 22rem; }
+  .footer-tag { font-size: var(--text-2xl); line-height: 1.1; margin-top: var(--space-3); }
+  .footer-pos { font-size: var(--text-sm); color: var(--color-on-green-muted); }
+  .footer-h { font-family: var(--font-sans); font-size: var(--text-xs); font-weight: 600; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-on-green-muted); margin-bottom: var(--space-4); }
+  .footer-col ul { display: grid; gap: var(--space-3); font-size: var(--text-sm); }
+  .footer-col a { text-decoration: none; opacity: 0.92; transition: opacity 0.2s; }
+  .footer-col a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+  .with-icon { display: inline-flex; align-items: center; gap: 0.5em; word-break: break-all; }
+  .muted-light { color: var(--color-on-green-muted); }
+  .socials { display: flex !important; flex-wrap: wrap; gap: var(--space-4) !important; margin-top: var(--space-5); }
+  .footer-bottom {
+    margin-top: clamp(3rem, 2rem + 3vw, 5rem);
+    padding-block: var(--space-6);
+    border-top: 1px solid rgba(248, 247, 242, 0.16);
+    display: flex; justify-content: space-between; gap: var(--space-6);
+    font-size: var(--text-xs); color: var(--color-on-green-muted);
+  }
+  .disclaimer { max-width: 44rem; text-align: right; }
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-bottom { flex-direction: column; }
+    .disclaimer { text-align: left; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  }
+</style>

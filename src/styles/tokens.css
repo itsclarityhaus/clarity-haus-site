@@ -1,0 +1,78 @@
+/* ─────────────────────────────────────────────────────────────
+   Clarity Haus design system
+   Every site-wide color, font, spacing, radius, shadow and width
+   lives here. Change a value once and it updates everywhere.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* Color */
+  --color-bg: #F8F7F2;
+  --color-bg-alt: #EFEEE7;
+  --color-surface: #FFFFFF;
+  --color-text: #1B1B18;
+  --color-text-muted: #62625C;
+  --color-green: #344536;
+  --color-green-hover: #2A382C;
+  --color-sage: #7D8878;
+  --color-sage-light: #E4E8E0;
+  --color-border: #DDDDD7;
+  --color-white: #FFFFFF;
+  --color-on-green: #F8F7F2;
+  --color-on-green-muted: #C9D0C4;
+
+  /* Typography */
+  --font-serif: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter Variable', 'Inter', 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', 'Bradley Hand', cursive;
+
+  --text-xs: 0.75rem;     /* 12 */
+  --text-sm: 0.875rem;    /* 14 */
+  --text-base: 1rem;      /* 16 */
+  --text-md: 1.125rem;    /* 18 */
+  --text-lg: 1.25rem;     /* 20 */
+  --text-xl: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
+  --text-2xl: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  --text-3xl: clamp(2.5rem, 1.7rem + 3.4vw, 4rem);
+  --text-4xl: clamp(2.9rem, 1.8rem + 4.6vw, 5.25rem);
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-body: 1.65;
+  --tracking-label: 0.16em;
+  --tracking-logo: 0.32em;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --section-pad: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(27, 27, 24, 0.04), 0 2px 8px rgba(27, 27, 24, 0.04);
+  --shadow-md: 0 2px 4px rgba(27, 27, 24, 0.03), 0 12px 32px rgba(27, 27, 24, 0.07);
+  --shadow-lg: 0 4px 8px rgba(27, 27, 24, 0.03), 0 30px 60px -12px rgba(27, 27, 24, 0.14);
+
+  /* Containers */
+  --container: 1200px;
+  --container-narrow: 760px;
+  --container-wide: 1320px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 0.7s;
+
+  --header-h: 72px;
+}

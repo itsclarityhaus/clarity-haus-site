@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import WaitlistForm from '../components/WaitlistForm.astro';
+import CtaSection from '../components/CtaSection.astro';
+
+const cleanup = [
+  'Bookkeeping cleanup', 'Account reconciliation', 'Income categorization', 'Expense categorization',
+  'Balance sheet', 'Profit and loss statement', 'Cash overview', 'Estimated tax planning',
+  'Business financial review', 'Financial recommendations', 'Potential projections',
+];
+const partnership = [
+  'Bookkeeping', 'Monthly financial statements', 'Revenue tracking', 'Expense tracking',
+  'Cash flow monitoring', 'Budgeting', 'Forecasting', 'Profitability analysis',
+  'Estimated tax planning', 'Financial strategy', 'Decision support', 'Payment reconciliation',
+  'Outstanding payment visibility',
+];
+
+const serviceSchema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: 'Financial Cleanup',
+    provider: { '@type': 'ProfessionalService', name: 'Clarity Haus' },
+    description: 'A one-time project that brings a creator business’s books up to date and delivers a clear picture of where the business stands.',
+    areaServed: 'US',
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: 'Ongoing Financial Partnership',
+    serviceType: 'Fractional CFO and bookkeeping',
+    provider: { '@type': 'ProfessionalService', name: 'Clarity Haus' },
+    description: 'Monthly or quarterly bookkeeping, financial reporting, cash flow planning, and fractional CFO decision support for creator businesses.',
+    areaServed: 'US',
+  },
+];
+---
+<BaseLayout
+  title="Services | Financial Cleanup & Fractional CFO for Creators | Clarity Haus"
+  description="Financial Cleanup and ongoing bookkeeping and fractional CFO partnerships for creators, influencers, and creator-led businesses. Tax preparation coming soon."
+  schema={serviceSchema}
+>
+  <PageHero
+    eyebrow="Services"
+    title="Three ways to get <em>financial clarity.</em>"
+    intro="Whether you need a one-time cleanup or ongoing support, we meet you where you are."
+  >
+    <nav class="jump" aria-label="Jump to a service">
+      <a href="#financial-cleanup">Financial Cleanup</a>
+      <a href="#financial-partnership">Ongoing Financial Partnership</a>
+      <a href="#tax-services">Tax Services <span>Coming soon</span></a>
+    </nav>
+  </PageHero>
+
+  <!-- SERVICE 1 -->
+  <section class="section" id="financial-cleanup">
+    <div class="container svc">
+      <div class="svc-intro" data-reveal>
+        <p class="svc-num serif">01</p>
+        <p class="eyebrow">One-time project</p>
+        <h2>Financial Cleanup</h2>
+        <p class="lead">For creators who feel behind, disorganized, or unsure where their business currently stands.</p>
+        <p class="muted">We organize your books, reconcile accounts, prepare financial statements, estimate taxes, and give you a clear picture of your business. When it's done, you can stop there or move into ongoing support.</p>
+        <Button href="/contact/?service=cleanup" size="lg" arrow>Start With a Financial Cleanup</Button>
+      </div>
+      <div class="card deliv" data-reveal style="--reveal-i:1">
+        <h3>Potential deliverables</h3>
+        <ul class="checklist deliv-list">{cleanup.map((d) => <li>{d}</li>)}</ul>
+        <p class="deliv-note"><Icon name="file" size={16} />Exact deliverables depend on the engagement and are confirmed before work begins.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 2 (primary) -->
+  <section class="section primary" id="financial-partnership">
+    <div class="container svc">
+      <div class="svc-intro" data-reveal>
+        <p class="svc-num serif">02</p>
+        <p class="eyebrow">Primary service · Monthly or quarterly</p>
+        <h2>Ongoing Financial Partnership</h2>
+        <p class="lead">Ongoing bookkeeping and fractional CFO support to help you stay organized and grow.</p>
+        <p class="muted-on">Regular reports, guidance, and a partner who knows your numbers, so you always know what you made, what you owe, and what you can do next.</p>
+        <Button href="/contact/?service=monthly" variant="light" size="lg" arrow>Book a Discovery Call</Button>
+      </div>
+      <div class="deliv deliv-dark" data-reveal style="--reveal-i:1">
+        <h3>Possible monthly or quarterly support</h3>
+        <ul class="checklist deliv-list">{partnership.map((d) => <li>{d}</li>)}</ul>
+        <p class="deliv-note"><Icon name="calendar" size={16} />Support level and meeting cadence are set together based on what your business needs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 3 -->
+  <section class="section" id="tax-services">
+    <div class="container-narrow tax card" data-reveal>
+      <span class="placeholder-note">Coming soon</span>
+      <h2>Tax Services</h2>
+      <p class="lead">Tax preparation may eventually become part of the broader Clarity Haus offering.</p>
+      <p class="muted">Clarity Haus does not currently offer tax preparation services. Today, we help you understand estimated taxes and plan for tax obligations as part of a Financial Cleanup or ongoing partnership. If you'd like to hear when tax preparation becomes available, join the waitlist.</p>
+      <WaitlistForm interest="Tax preparation" id="tax-waitlist" />
+    </div>
+  </section>
+
+  <section class="section-tight section-alt">
+    <div class="container not-sure" data-reveal>
+      <div>
+        <h2 class="serif">Not sure which one fits?</h2>
+        <p class="muted">Tell us where things stand today. We'll help determine whether a Financial Cleanup or ongoing partnership makes the most sense.</p>
+      </div>
+      <Button href="/contact/" variant="secondary" size="lg" arrow>Talk it through</Button>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .jump { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .jump a {
+    display: inline-flex; align-items: center; gap: 0.5em;
+    padding: 0.6rem 1.1rem; min-height: 44px;
+    border: 1px solid var(--color-border); border-radius: var(--radius-pill);
+    font-size: var(--text-sm); text-decoration: none; background: var(--color-white);
+  }
+  .jump a:hover { border-color: var(--color-green); }
+  .jump span { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-sage); }
+
+  .svc { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: start; }
+  .svc-intro { display: grid; gap: var(--space-5); justify-items: start; position: sticky; top: calc(var(--header-h) + 2rem); }
+  .svc-num { font-size: 1.1rem; color: var(--color-sage); }
+  .svc-intro h2 { font-size: var(--text-3xl); }
+  .deliv { padding: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); display: grid; gap: var(--space-6); }
+  .deliv h3 { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-sage); font-weight: 600; }
+  .deliv-list { grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-5); }
+  .deliv-list li { font-size: var(--text-base); }
+  .deliv-note { display: flex; gap: 0.6em; align-items: flex-start; font-size: var(--text-sm); color: var(--color-text-muted); padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+  .deliv-note :global(svg) { flex: none; margin-top: 3px; }
+
+  .primary { background: var(--color-green); color: var(--color-on-green); }
+  .primary .eyebrow, .primary .svc-num { color: var(--color-on-green-muted); }
+  .primary .lead { color: var(--color-on-green); }
+  .muted-on { color: var(--color-on-green-muted); }
+  .deliv-dark { border: 1px solid rgba(248, 247, 242, 0.18); border-radius: var(--radius-lg); background: rgba(248, 247, 242, 0.04); }
+  .deliv-dark h3, .deliv-dark .deliv-note { color: var(--color-on-green-muted); }
+  .deliv-dark .deliv-note { border-top-color: rgba(248, 247, 242, 0.18); }
+  .deliv-dark .checklist li::before { background-color: rgba(248, 247, 242, 0.14); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F8F7F2' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E"); }
+
+  .tax { padding: clamp(2rem, 1.5rem + 3vw, 4rem); display: grid; gap: var(--space-5); justify-items: start; box-shadow: none; border-style: dashed; background: transparent; }
+
+  .not-sure { display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); flex-wrap: wrap; }
+  .not-sure h2 { font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+  .not-sure p { max-width: 36em; }
+
+  @media (max-width: 960px) {
+    .svc { grid-template-columns: 1fr; }
+    .svc-intro { position: static; }
+  }
+  @media (max-width: 520px) { .deliv-list { grid-template-columns: 1fr; } }
+</style>

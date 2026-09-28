@@ -1,0 +1,47 @@
+---
+// Shows testimonial cards once `testimonials` in src/data/site.ts has entries.
+// Until then, shows the "Launching Fall 2026" waitlist card. Never fabricate quotes.
+import { testimonials } from '../data/site';
+import WaitlistForm from './WaitlistForm.astro';
+---
+{testimonials.length > 0 ? (
+  <div class="t-grid">
+    {testimonials.map((t, i) => (
+      <figure class="t-card" data-reveal style={`--reveal-i:${i}`}>
+        <span class="t-mark serif" aria-hidden="true">“</span>
+        <blockquote><p>{t.quote}</p></blockquote>
+        <figcaption><strong>{t.name}</strong><span>{t.role}</span></figcaption>
+      </figure>
+    ))}
+  </div>
+) : (
+  <div class="t-launch" data-reveal>
+    <div class="t-ghosts" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="t-kicker">Launching Fall 2026</p>
+    <p class="t-text">Be one of the first creator businesses to experience Clarity Haus.</p>
+    <WaitlistForm interest="Early access (testimonials section)" id="t-waitlist" />
+  </div>
+)}
+
+<style>
+  .t-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-5); }
+  .t-card { margin: 0; background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2rem; display: grid; gap: var(--space-4); }
+  .t-mark { font-size: 4rem; line-height: 0.6; color: var(--color-sage); }
+  .t-card blockquote { font-size: var(--text-md); }
+  .t-card figcaption { display: grid; font-size: var(--text-sm); }
+  .t-card figcaption span { color: var(--color-text-muted); }
+
+  .t-launch {
+    max-width: 720px; margin-inline: auto;
+    display: grid; justify-items: center; gap: var(--space-5); text-align: center;
+    padding: clamp(2.5rem, 2rem + 3vw, 4rem) clamp(1.25rem, 1rem + 3vw, 4rem);
+    background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+  .t-ghosts { display: flex; margin-bottom: var(--space-2); }
+  .t-ghosts span { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--color-white); background: var(--color-sage-light); margin-left: -10px; }
+  .t-ghosts span:nth-child(2) { background: #D3D9CE; }
+  .t-ghosts span:nth-child(3) { background: var(--color-sage); }
+  .t-kicker { font-family: var(--font-serif); font-size: var(--text-2xl); line-height: 1.1; }
+  .t-text { color: var(--color-text-muted); max-width: 30em; }
+</style>

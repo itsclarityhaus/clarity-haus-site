@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+const revenue = ['Under $50K', '$50K – $100K', '$100K – $250K', '$250K – $500K', '$500K – $1M', 'Over $1M', 'Prefer not to say'];
+const services = [
+  { v: 'cleanup', l: 'Financial Cleanup' },
+  { v: 'monthly', l: 'Monthly Financial Partnership' },
+  { v: 'quarterly', l: 'Quarterly Financial Partnership' },
+  { v: 'unsure', l: 'Not Sure Yet' },
+];
+---
+<BaseLayout
+  title="Book a Discovery Call | Clarity Haus"
+  description="Tell us where your creator business stands today and where you want to go. We'll help determine whether a Financial Cleanup or ongoing partnership makes the most sense."
+>
+  <section class="contact">
+    <div class="container contact-grid">
+      <div class="contact-intro">
+        <p class="eyebrow" data-reveal>Book a call</p>
+        <h1 data-reveal style="--reveal-i:1">Let's talk about <em>your business.</em></h1>
+        <p class="lead" data-reveal style="--reveal-i:2">Tell us where things stand today and where you want to go. We'll help determine whether a Financial Cleanup or ongoing partnership makes the most sense.</p>
+        <ul class="next" role="list" data-reveal style="--reveal-i:3">
+          <li><span>1</span>Share a few details about your business.</li>
+          <li><span>2</span>We review them and reach out to schedule your discovery call.</li>
+          <li><span>3</span>You get a clear recommendation for next steps.</li>
+        </ul>
+        <p class="direct" data-reveal>Prefer email? <a href={`mailto:${site.email}`}><Icon name="mail" size={16} />{site.email}</a></p>
+      </div>
+
+      <form
+        class="card contact-form"
+        name="contact"
+        method="POST"
+        action="/thanks/"
+        data-netlify="true"
+        netlify-honeypot="company_website"
+        data-reveal
+        style="--reveal-i:1"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="clarity_score" value="" data-score-field />
+        <p class="sr-only"><label>Leave this empty: <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
+
+        <div class="row">
+          <div class="field"><label for="name">Name</label><input class="input" id="name" name="name" autocomplete="name" required /></div>
+          <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required /></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="business">Business Name <span class="opt">(optional)</span></label><input class="input" id="business" name="business_name" autocomplete="organization" /></div>
+          <div class="field"><label for="handle">Website / Social Handle</label><input class="input" id="handle" name="website_or_handle" placeholder="@yourhandle" /></div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="revenue">Approximate Annual Revenue</label>
+            <select class="input" id="revenue" name="annual_revenue" required>
+              <option value="" disabled selected>Select a range</option>
+              {revenue.map((r) => <option>{r}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="service">What do you need help with?</label>
+            <select class="input" id="service" name="service_interest" required data-service>
+              <option value="" disabled selected>Select one</option>
+              {services.map((s) => <option value={s.l} data-key={s.v}>{s.l}</option>)}
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="message">Message</label><textarea class="input" id="message" name="message" placeholder="Where do things stand today? What would you like help with?"></textarea></div>
+
+        <Button type="submit" size="lg" arrow class="submit">Send &amp; Request a Call</Button>
+        <p class="fine">We'll only use your details to respond to your inquiry.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section-tight section-alt" id="schedule">
+    <div class="container-narrow sched">
+      <h2 class="serif">Or pick a time directly.</h2>
+      {site.schedulingUrl ? (
+        <iframe src={site.schedulingUrl} title="Schedule a discovery call" loading="lazy" class="sched-frame"></iframe>
+      ) : (
+        <div class="sched-ph">
+          <Icon name="calendar" size={32} />
+          <span class="placeholder-note">Scheduling calendar — add Calendly link</span>
+          <p class="muted">Online booking is coming soon. For now, use the form above and we'll reach out to find a time.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact { padding-block: clamp(3rem, 2rem + 4vw, 6rem); }
+  .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: start; }
+  .contact-intro { display: grid; gap: var(--space-6); position: sticky; top: calc(var(--header-h) + 2rem); }
+  .contact-intro h1 { font-size: var(--text-3xl); }
+  .next { display: grid; gap: var(--space-4); }
+  .next li { display: flex; gap: var(--space-4); align-items: center; }
+  .next span { flex: none; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--color-border); display: grid; place-items: center; font-family: var(--font-serif); color: var(--color-green); background: var(--color-white); }
+  .direct { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .direct a { display: inline-flex; align-items: center; gap: 0.4em; color: var(--color-green); word-break: break-all; }
+
+  .contact-form { padding: clamp(1.5rem, 1rem + 2vw, 2.75rem); display: grid; gap: var(--space-5); box-shadow: var(--shadow-md); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  .contact-form :global(.submit) { width: 100%; margin-top: var(--space-2); }
+  .fine { font-size: var(--text-xs); color: var(--color-text-muted); text-align: center; }
+
+  .sched { display: grid; gap: var(--space-6); text-align: center; }
+  .sched h2 { font-size: var(--text-2xl); }
+  .sched-ph { display: grid; justify-items: center; gap: var(--space-4); padding: clamp(2rem, 1.5rem + 3vw, 3.5rem); border: 1px dashed var(--color-sage); border-radius: var(--radius-lg); color: var(--color-sage); background: var(--color-bg); }
+  .sched-ph p { max-width: 30em; }
+  .sched-frame { width: 100%; height: 700px; border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-white); }
+
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-intro { position: static; }
+  }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  // Preselect service from ?service=cleanup|monthly|quarterly|unsure
+  const key = new URLSearchParams(location.search).get('service');
+  const sel = document.querySelector<HTMLSelectElement>('[data-service]');
+  if (key && sel) {
+    const opt = sel.querySelector<HTMLOptionElement>(`option[data-key="${CSS.escape(key)}"]`);
+    if (opt) opt.selected = true;
+  }
+  // Carry a Health Check score through (?score=42) so it arrives with the inquiry
+  const score = new URLSearchParams(location.search).get('score');
+  const scoreField = document.querySelector<HTMLInputElement>('[data-score-field]');
+  if (score && scoreField && /^\d{1,3}$/.test(score)) scoreField.value = score;
+</script>

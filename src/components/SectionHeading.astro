@@ -1,0 +1,23 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;          // may contain <em> for an italic accent
+  intro?: string;
+  align?: 'left' | 'center';
+  as?: 'h1' | 'h2';
+  class?: string;
+}
+const { eyebrow, title, intro, align = 'left', as: Tag = 'h2', class: cls = '' } = Astro.props;
+---
+<header class={`section-heading align-${align} ${cls}`} data-reveal>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+  <Tag set:html={title} />
+  {intro && <p class="lead">{intro}</p>}
+  <slot />
+</header>
+
+<style>
+  .section-heading { display: grid; gap: var(--space-5); max-width: 46rem; margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem); }
+  .align-center { margin-inline: auto; text-align: center; justify-items: center; }
+  .align-center .lead { margin-inline: auto; }
+</style>
