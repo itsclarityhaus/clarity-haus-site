@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import NicheCards from '../../components/NicheCards.astro';
+import Button from '../../components/Button.astro';
+import CtaSection from '../../components/CtaSection.astro';
+---
+<BaseLayout
+  title="Who I Work With | Clarity Haus"
+  description="Clarity Haus provides fractional CFO support to owner-led businesses in any industry, with a focus on contractors and trades, service businesses, and creators."
+>
+  <PageHero
+    eyebrow="Who I work with"
+    title="Owner-led businesses, <em>in any industry.</em>"
+    intro="If you run the business and the numbers haven't kept up, Clarity Haus can help. These are the three areas I focus on, but you don't need to fit one of them to work together."
+  />
+
+  <section class="section">
+    <div class="container">
+      <NicheCards />
+      <div class="other card" data-reveal>
+        <div>
+          <h2 class="serif">Not on the list?</h2>
+          <p class="muted">Clean books, clear reporting, and a plan for cash and growth apply to almost any business. Tell me about yours and we'll see if it's a fit.</p>
+        </div>
+        <Button href="/contact/" variant="secondary" arrow>Start a conversation</Button>
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</BaseLayout>
+
+<style>
+  .other { margin-top: var(--space-7); padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem); display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); flex-wrap: wrap; box-shadow: none; background: transparent; border-style: dashed; }
+  .other h2 { font-size: var(--text-2xl); margin-bottom: var(--space-2); }
+  .other p { max-width: 38em; }
+</style>

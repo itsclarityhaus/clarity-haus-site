@@ -1,0 +1,42 @@
+---
+import NichePage from '../../components/NichePage.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CreatorCategories from '../../components/CreatorCategories.astro';
+---
+<NichePage
+  metaTitle="Fractional CFO for Creators & Online Businesses | Clarity Haus"
+  metaDescription="Brand deals, affiliate income, platform payouts, irregular payments, and quarterly taxes. Bookkeeping and fractional CFO support for creators and online businesses."
+  eyebrow="Creators & Online Businesses"
+  title="Creator income isn't simple. <em>Your finances shouldn't feel impossible.</em>"
+  intro="A creator business can have a dozen income streams, payments that arrive months after the work, and no employer setting money aside for taxes. That's a real business, and it deserves real financial support."
+  challengesTitle="The financial side of the creator economy."
+  challengesIntro="Most bookkeeping setups were built for businesses with one product and predictable payroll. Creator businesses rarely look like that."
+  challenges={[
+    { icon: 'layers', title: 'Multiple revenue sources', text: 'Income arrives from many places at once, and each one needs to be tracked and categorized.' },
+    { icon: 'briefcase', title: 'Brand partnerships', text: 'Contracts, deliverables, and payment terms differ from deal to deal.' },
+    { icon: 'link', title: 'Affiliate income', text: 'Small, frequent payouts across programs that are easy to lose track of.' },
+    { icon: 'play', title: 'Platform payouts', text: 'Creator funds, ad revenue, and subscriptions, each with its own schedule and statements.' },
+    { icon: 'download', title: 'Digital products & courses', text: 'Launch-driven sales, fees, and platform deductions that need to reconcile to what hit your account.' },
+    { icon: 'clock', title: 'Irregular payment timing', text: 'Work done this month may not be paid for 30, 60, or 90 days.' },
+    { icon: 'calendar', title: 'Quarterly taxes', text: 'No employer withholding, so estimated taxes need to be planned for all year.' },
+    { icon: 'tag', title: 'Outstanding brand invoices', text: 'Money you have earned but not yet received, and knowing who to follow up with.' },
+  ]}
+  helpTitle="The business behind the content, <em>handled.</em>"
+  helpIntro="Clarity Haus started here: my wife is a creator, and helping with the business side of her brand is what showed me how much creators need real financial support."
+  help={[
+    'Clean books with every revenue stream tracked and categorized',
+    'Monthly reporting on what you actually made',
+    'Tracking of outstanding brand and sponsor payments',
+    'Estimated tax planning so tax time holds no surprises',
+    'A planned owner pay amount based on profit and cash',
+    'A partner for decisions like hiring help or launching a product',
+  ]}
+  ctaTitle="Get a clear picture of the business you've built."
+>
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="I work with creators in" title="All kinds of creative businesses." />
+      <CreatorCategories />
+    </div>
+  </section>
+</NichePage>

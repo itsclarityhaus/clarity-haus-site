@@ -5,8 +5,8 @@
 export const site = {
   name: 'Clarity Haus',
   url: 'https://itsclarityhaus.com',
-  tagline: 'Financial clarity for creators.',
-  positioning: 'We help creators understand, organize, and grow the business behind their content.',
+  tagline: 'Financial clarity for owner-led businesses.',
+  positioning: 'Fractional CFO support for owner-led businesses: clean books, clear reporting, and a plan for cash and growth.',
   email: 'itsclarityhaus@gmail.com',
 
   // PLACEHOLDER: paste your Calendly (or other scheduler) link here.
@@ -25,12 +25,16 @@ export const nav = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services/' },
   { label: 'How It Works', href: '/how-it-works/' },
-  { label: 'For Creators', href: '/for-creators/' },
+  { label: 'Who I Work With', href: '/who-i-work-with/' },
   { label: 'About', href: '/about/' },
   { label: 'FAQ', href: '/faq/' },
 ];
 
 export const faqs = [
+  {
+    q: 'What kinds of businesses do you work with?',
+    a: 'Owner-led businesses in any industry. The three I focus on are contractors and trades, service businesses, and creators and online businesses.',
+  },
   {
     q: 'Do I need QuickBooks?',
     a: "Not necessarily. We'll review your current financial setup and recommend the tools that make the most sense for your business.",
@@ -41,7 +45,7 @@ export const faqs = [
   },
   {
     q: 'Can you work remotely?',
-    a: 'Yes. Clarity Haus is designed to work with creator businesses virtually.',
+    a: 'Yes. Clarity Haus works with businesses virtually, anywhere in the U.S.',
   },
   {
     q: 'Can I start with just a cleanup?',
@@ -57,15 +61,15 @@ export const faqs = [
   },
   {
     q: 'Do you work with LLCs?',
-    a: 'Yes. We work with creator businesses using a variety of business structures.',
+    a: 'Yes. We work with businesses using a variety of structures, including single- and multi-member LLCs.',
   },
   {
     q: 'Can I cancel anytime?',
     a: 'The exact engagement terms will depend on the service selected. One-time cleanup projects are project-based, while ongoing partnerships may have their own engagement terms.',
   },
   {
-    q: 'Do you work with international creators?',
-    a: 'Clarity Haus currently focuses primarily on U.S.-based creator businesses.',
+    q: 'Do you work with businesses outside the U.S.?',
+    a: 'Clarity Haus currently focuses primarily on U.S.-based businesses.',
   },
 ];
 
@@ -75,6 +79,27 @@ export const processSteps = [
   { title: 'Recommendations', text: 'We create a clear plan tailored to your needs.' },
   { title: 'Clean Books or Ongoing Support', text: 'We get your finances organized and set up for long-term success.' },
   { title: 'Ongoing Partnership', text: 'You receive regular reports, guidance, and support so you always know your numbers.' },
+];
+
+export const niches = [
+  {
+    slug: 'contractors',
+    title: 'Contractors & Trades',
+    icon: 'hardhat',
+    short: 'General contractors, specialty trades, and home service companies. Job costing, progress billing, retainage, and cash flow between draws.',
+  },
+  {
+    slug: 'service-businesses',
+    title: 'Service Businesses',
+    icon: 'briefcase',
+    short: 'Agencies, consultants, studios, and professional service firms. Pricing, profitability by client, owner pay, and getting paid on time.',
+  },
+  {
+    slug: 'creators',
+    title: 'Creators & Online Businesses',
+    icon: 'play',
+    short: 'Creators, influencers, and online brands. Brand deals, affiliate and platform income, irregular payments, and quarterly taxes.',
+  },
 ];
 
 export const creatorCategories = [

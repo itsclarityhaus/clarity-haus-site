@@ -16,7 +16,7 @@ const { interest = 'General', button = 'Join the Waitlist', dark = false, id = '
   <input type="hidden" name="interest" value={interest} />
   <p class="sr-only"><label>Leave this empty: <input name="company_website" tabindex="-1" autocomplete="off" /></label></p>
   <label for={`${id}-email`} class="sr-only">Email address</label>
-  <input id={`${id}-email`} class="input" type="email" name="email" placeholder="you@yourbrand.com" autocomplete="email" required />
+  <input id={`${id}-email`} class="input" type="email" name="email" placeholder="you@yourbusiness.com" autocomplete="email" required />
   <button type="submit" class="btn btn-primary">{button}</button>
 </form>
 

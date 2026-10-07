@@ -22,21 +22,21 @@ const serviceSchema = [
   {
     '@context': 'https://schema.org', '@type': 'Service', name: 'Financial Cleanup',
     provider: { '@type': 'ProfessionalService', name: 'Clarity Haus' },
-    description: 'A one-time project that brings a creator business’s books up to date and delivers a clear picture of where the business stands.',
+    description: 'A one-time project that brings a business’s books up to date and delivers a clear picture of where the business stands.',
     areaServed: 'US',
   },
   {
-    '@context': 'https://schema.org', '@type': 'Service', name: 'Ongoing Financial Partnership',
+    '@context': 'https://schema.org', '@type': 'Service', name: 'Fractional CFO',
     serviceType: 'Fractional CFO and bookkeeping',
     provider: { '@type': 'ProfessionalService', name: 'Clarity Haus' },
-    description: 'Monthly or quarterly bookkeeping, financial reporting, cash flow planning, and fractional CFO decision support for creator businesses.',
+    description: 'Monthly or quarterly bookkeeping, financial reporting, cash flow planning, and fractional CFO decision support for owner-led businesses.',
     areaServed: 'US',
   },
 ];
 ---
 <BaseLayout
-  title="Services | Financial Cleanup & Fractional CFO for Creators | Clarity Haus"
-  description="Financial Cleanup and ongoing bookkeeping and fractional CFO partnerships for creators, influencers, and creator-led businesses. Tax preparation coming soon."
+  title="Services | Fractional CFO & Financial Cleanup | Clarity Haus"
+  description="Financial Cleanup and ongoing fractional CFO support, including bookkeeping, reporting, and cash flow planning, for owner-led businesses. Tax preparation coming soon."
   schema={serviceSchema}
 >
   <PageHero
@@ -46,7 +46,7 @@ const serviceSchema = [
   >
     <nav class="jump" aria-label="Jump to a service">
       <a href="#financial-cleanup">Financial Cleanup</a>
-      <a href="#financial-partnership">Ongoing Financial Partnership</a>
+      <a href="#financial-partnership">Fractional CFO</a>
       <a href="#tax-services">Tax Services <span>Coming soon</span></a>
     </nav>
   </PageHero>
@@ -56,9 +56,9 @@ const serviceSchema = [
     <div class="container svc">
       <div class="svc-intro" data-reveal>
         <p class="svc-num serif">01</p>
-        <p class="eyebrow">One-time project</p>
+        <p class="eyebrow">One-time project · Best place to start</p>
         <h2>Financial Cleanup</h2>
-        <p class="lead">For creators who feel behind, disorganized, or unsure where their business currently stands.</p>
+        <p class="lead">For owners who feel behind, disorganized, or unsure where their business currently stands.</p>
         <p class="muted">We organize your books, reconcile accounts, prepare financial statements, estimate taxes, and give you a clear picture of your business. When it's done, you can stop there or move into ongoing support.</p>
         <Button href="/contact/?service=cleanup" size="lg" arrow>Start With a Financial Cleanup</Button>
       </div>
@@ -76,8 +76,8 @@ const serviceSchema = [
       <div class="svc-intro" data-reveal>
         <p class="svc-num serif">02</p>
         <p class="eyebrow">Primary service · Monthly or quarterly</p>
-        <h2>Ongoing Financial Partnership</h2>
-        <p class="lead">Ongoing bookkeeping and fractional CFO support to help you stay organized and grow.</p>
+        <h2>Fractional CFO</h2>
+        <p class="lead">The finance function your business needs, without a full-time hire. Ongoing bookkeeping, reporting, and CFO support to help you stay organized and grow.</p>
         <p class="muted-on">Regular reports, guidance, and a partner who knows your numbers, so you always know what you made, what you owe, and what you can do next.</p>
         <Button href="/contact/?service=monthly" variant="light" size="lg" arrow>Book a Discovery Call</Button>
       </div>
@@ -95,7 +95,7 @@ const serviceSchema = [
       <span class="placeholder-note">Coming soon</span>
       <h2>Tax Services</h2>
       <p class="lead">Tax preparation may eventually become part of the broader Clarity Haus offering.</p>
-      <p class="muted">Clarity Haus does not currently offer tax preparation services. Today, we help you understand estimated taxes and plan for tax obligations as part of a Financial Cleanup or ongoing partnership. If you'd like to hear when tax preparation becomes available, join the waitlist.</p>
+      <p class="muted">Clarity Haus does not currently offer tax preparation services. Today, we help you understand estimated taxes and plan for tax obligations as part of a Financial Cleanup or Fractional CFO engagement. If you'd like to hear when tax preparation becomes available, join the waitlist.</p>
       <WaitlistForm interest="Tax preparation" id="tax-waitlist" />
     </div>
   </section>
@@ -104,7 +104,7 @@ const serviceSchema = [
     <div class="container not-sure" data-reveal>
       <div>
         <h2 class="serif">Not sure which one fits?</h2>
-        <p class="muted">Tell us where things stand today. We'll help determine whether a Financial Cleanup or ongoing partnership makes the most sense.</p>
+        <p class="muted">Tell us where things stand today. We'll help determine whether a Financial Cleanup or Fractional CFO support makes the most sense.</p>
       </div>
       <Button href="/contact/" variant="secondary" size="lg" arrow>Talk it through</Button>
     </div>

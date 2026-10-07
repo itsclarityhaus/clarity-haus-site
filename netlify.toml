@@ -28,3 +28,15 @@
   from = "/quiz"
   to = "/health-check/"
   status = 301
+
+[[redirects]]
+  from = "/for-creators/*"
+  to = "/who-i-work-with/creators/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/for-creators"
+  to = "/who-i-work-with/creators/"
+  status = 301
+  force = true

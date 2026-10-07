@@ -10,26 +10,27 @@ import CtaSection from '../components/CtaSection.astro';
 // Leave a field as '' to keep showing its placeholder.
 const founder = {
   name: 'Cole',
-  role: 'Founder, Clarity Haus',
+  role: 'Founder & Fractional CFO, Clarity Haus',
   photo: '/images/cole.jpg', // file lives in /public/images/
   bio: [
-    "I'm Cole, the founder of Clarity Haus. I've spent 13 years in accounting, about half in public accounting and half in corporate finance, helping businesses understand their numbers and make better decisions with them.",
-    "Clarity Haus started at home. My wife is a creator, and as I helped with the business side of her brand, I saw the same challenges come up across the creator industry: income from a dozen different places, brand payments that arrive months later, taxes no one is setting aside for, and no clear picture of what the business actually earns. Talented creators were building real businesses without financial support behind them. I started Clarity Haus to change that.",
+    "I'm Cole, the founder of Clarity Haus. I have more than 12 years of accounting and finance experience. I spent eight years at a CPA firm on audit engagements, including nonprofit and employee benefit plan audits, then moved into finance operations at a construction company, where I worked on cash forecasting, KPIs, budgeting, and labor burden analysis.",
+    "Audit taught me what reliable numbers look like. Running finance inside an operating business showed me how much better owners decide when they have them. Clarity Haus brings both to owner-led businesses that need CFO-level support without a full-time hire.",
+    "The idea started at home. My wife is a creator, and helping with the business side of her brand showed me how many talented people run real businesses without financial support behind them. Today I work with contractors and trades, service businesses, and creators alike.",
     "When I'm not working, you'll find me with my wife, our three kids, and our dog, usually near the ocean, outdoors, or out on the next adventure.",
   ] as string[], // one string per paragraph
 };
 ---
 <BaseLayout
   title="About | Clarity Haus"
-  description="Clarity Haus gives creators financial clarity: where their money comes from, where it goes, what to plan for, and what their numbers actually mean."
+  description="Meet Cole, founder of Clarity Haus: 12+ years in accounting and finance, from CPA-firm audit to construction finance operations, now providing fractional CFO support to owner-led businesses."
 >
-  <PageHero eyebrow="About Clarity Haus" title="Financial expertise for the business <em>behind the content.</em>" />
+  <PageHero eyebrow="About Clarity Haus" title="Financial expertise for <em>owner-led businesses.</em>" />
 
   <section class="section">
     <div class="container-narrow story">
-      <p class="story-lead serif" data-reveal>Creator businesses can grow incredibly quickly, but the financial systems behind them often don't grow at the same pace.</p>
+      <p class="story-lead serif" data-reveal>Businesses can grow quickly, but the financial systems behind them often don't keep pace.</p>
       <p class="story-mark serif" data-reveal>Clarity Haus exists to fix that.</p>
-      <p data-reveal>We help creators understand where their money is coming from, where it's going, what they should be planning for, and what their numbers actually mean.</p>
+      <p data-reveal>We help owners understand where their money is coming from, where it's going, what they should be planning for, and what their numbers actually mean.</p>
       <p data-reveal>Our goal isn't to overwhelm you with spreadsheets or accounting terminology.</p>
       <p class="story-mark serif" data-reveal>It's to give you clarity.</p>
       <p data-reveal>Because when you understand your numbers, you can make better decisions about your business, your money, and your future.</p>
@@ -55,7 +56,7 @@ const founder = {
           {founder.bio.length > 0 ? founder.bio.map((p) => <p>{p}</p>) : (
             <div class="ph-block">
               <span class="placeholder-note">Founder bio — add later</span>
-              <p class="muted">A short introduction to Cole: background, why he started Clarity Haus, and how he works with creators.</p>
+              <p class="muted">A short introduction to Cole: background, why he started Clarity Haus, and how he works with clients.</p>
             </div>
           )}
         </div>
@@ -70,7 +71,7 @@ const founder = {
       <div class="values">
         {[
           { icon: 'compass', t: 'Clarity first', d: 'Numbers are only useful when you understand what they mean for your next decision.' },
-          { icon: 'sparkle', t: 'Built for creators', d: 'Brand deals, affiliate payouts, launches, and income swings are the norm here, not the exception.' },
+          { icon: 'sparkle', t: 'Built for owners', d: 'Support sized for owner-led businesses: practical, hands-on, and focused on the decisions in front of you.' },
           { icon: 'chat', t: 'Plain language', d: 'No accounting jargon for its own sake. You get clear answers you can act on.' },
         ].map((v, i) => (
           <div class="value card" data-reveal style={`--reveal-i:${i}`}>

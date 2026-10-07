@@ -1,0 +1,96 @@
+---
+// Shared layout for the industry pages under /who-i-work-with/.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from './PageHero.astro';
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import CtaSection from './CtaSection.astro';
+
+interface Props {
+  metaTitle: string;
+  metaDescription: string;
+  eyebrow: string;
+  title: string;
+  intro: string;
+  challengesTitle: string;
+  challengesIntro?: string;
+  challenges: { icon: string; title: string; text: string }[];
+  whoTitle?: string;
+  who?: string[];
+  helpTitle: string;
+  helpIntro?: string;
+  help: string[];
+  ctaTitle: string;
+}
+const p = Astro.props;
+---
+<BaseLayout title={p.metaTitle} description={p.metaDescription}>
+  <PageHero eyebrow={p.eyebrow} title={p.title} intro={p.intro}>
+    <div class="hero-ctas">
+      <Button href="/contact/" size="lg" arrow>Book a Discovery Call</Button>
+      <Button href="/services/" variant="secondary" size="lg">See Services</Button>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading eyebrow="What makes it different" title={p.challengesTitle} intro={p.challengesIntro} />
+      <ul class="ch-grid" role="list">
+        {p.challenges.map((c, i) => (
+          <li class="ch" data-reveal style={`--reveal-i:${i % 4}`}>
+            <span class="ch-icon"><Icon name={c.icon} size={22} /></span>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container help">
+      <div>
+        <SectionHeading eyebrow="How Clarity Haus helps" title={p.helpTitle} intro={p.helpIntro} />
+        {p.who && (
+          <div class="who" data-reveal>
+            <h3>{p.whoTitle ?? 'Who this is for'}</h3>
+            <ul role="list">{p.who.map((w) => <li>{w}</li>)}</ul>
+          </div>
+        )}
+      </div>
+      <div class="card help-card" data-reveal style="--reveal-i:1">
+        <ul class="checklist">{p.help.map((h) => <li>{h}</li>)}</ul>
+        <p class="help-note"><Icon name="file" size={16} />Exact scope depends on the engagement and is agreed before work begins.</p>
+        <div class="help-ctas">
+          <Button href="/services/#financial-cleanup" variant="secondary" arrow>Financial Cleanup</Button>
+          <Button href="/services/#financial-partnership" variant="secondary" arrow>Fractional CFO</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <slot />
+
+  <CtaSection title={p.ctaTitle} />
+</BaseLayout>
+
+<style>
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .ch-grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-4); }
+  .ch { display: grid; gap: var(--space-3); align-content: start; padding: 1.6rem; background: var(--color-white); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+  .ch-icon { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--color-sage-light); color: var(--color-green); margin-bottom: var(--space-2); }
+  .ch h3 { font-size: var(--text-base); }
+  .ch p { font-size: var(--text-sm); color: var(--color-text-muted); }
+
+  .help { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: start; }
+  .who h3 { font-size: var(--text-xs); letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--color-sage); margin-bottom: var(--space-4); }
+  .who ul { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .who li { padding: 0.45rem 0.95rem; border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-white); font-size: var(--text-sm); }
+  .help-card { padding: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); display: grid; gap: var(--space-6); }
+  .help-note { display: flex; gap: 0.6em; align-items: flex-start; font-size: var(--text-sm); color: var(--color-text-muted); padding-top: var(--space-5); border-top: 1px solid var(--color-border); }
+  .help-note :global(svg) { flex: none; margin-top: 3px; }
+  .help-ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  @media (max-width: 960px) { .help { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .hero-ctas :global(.btn), .help-ctas :global(.btn) { width: 100%; } }
+</style>

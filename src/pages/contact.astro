@@ -7,21 +7,21 @@ import { site } from '../data/site';
 const revenue = ['Under $50K', '$50K – $100K', '$100K – $250K', '$250K – $500K', '$500K – $1M', 'Over $1M', 'Prefer not to say'];
 const services = [
   { v: 'cleanup', l: 'Financial Cleanup' },
-  { v: 'monthly', l: 'Monthly Financial Partnership' },
-  { v: 'quarterly', l: 'Quarterly Financial Partnership' },
+  { v: 'monthly', l: 'Fractional CFO (monthly)' },
+  { v: 'quarterly', l: 'Fractional CFO (quarterly)' },
   { v: 'unsure', l: 'Not Sure Yet' },
 ];
 ---
 <BaseLayout
   title="Book a Discovery Call | Clarity Haus"
-  description="Tell us where your creator business stands today and where you want to go. We'll help determine whether a Financial Cleanup or ongoing partnership makes the most sense."
+  description="Tell us where your business stands today and where you want to go. We'll help determine whether a Financial Cleanup or ongoing partnership makes the most sense."
 >
   <section class="contact">
     <div class="container contact-grid">
       <div class="contact-intro">
         <p class="eyebrow" data-reveal>Book a call</p>
         <h1 data-reveal style="--reveal-i:1">Let's talk about <em>your business.</em></h1>
-        <p class="lead" data-reveal style="--reveal-i:2">Tell us where things stand today and where you want to go. We'll help determine whether a Financial Cleanup or ongoing partnership makes the most sense.</p>
+        <p class="lead" data-reveal style="--reveal-i:2">Tell us where things stand today and where you want to go. We'll help determine whether a Financial Cleanup or Fractional CFO support makes the most sense.</p>
         <ul class="next" role="list" data-reveal style="--reveal-i:3">
           <li><span>1</span>Share a few details about your business.</li>
           <li><span>2</span>We review them and reach out to schedule your discovery call.</li>
@@ -50,7 +50,7 @@ const services = [
         </div>
         <div class="row">
           <div class="field"><label for="business">Business Name <span class="opt">(optional)</span></label><input class="input" id="business" name="business_name" autocomplete="organization" /></div>
-          <div class="field"><label for="handle">Website / Social Handle</label><input class="input" id="handle" name="website_or_handle" placeholder="@yourhandle" /></div>
+          <div class="field"><label for="handle">Website / Social Handle</label><input class="input" id="handle" name="website_or_handle" placeholder="yourbusiness.com or @handle" /></div>
         </div>
         <div class="row">
           <div class="field">

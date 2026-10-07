@@ -60,7 +60,7 @@ const { title, subheading, copy, icon, cta, href, featured = false, badge, muted
     background: rgba(248, 247, 242, 0.14); color: var(--color-on-green);
   }
   .muted { background: transparent; box-shadow: none; border-style: dashed; }
-  .muted .badge { background: var(--color-sage-light); color: var(--color-green); }
+  .service-card:not(.featured) .badge { background: var(--color-sage-light); color: var(--color-green); }
 
   @media (min-width: 1000px) {
     .featured { transform: translateY(-16px); }
